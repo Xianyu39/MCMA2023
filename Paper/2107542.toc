@@ -1,0 +1,38 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.0.1}%
+\contentsline {subsection}{\numberline {1.1}Problem Background}{3}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {1.2}Our work}{3}{subsection.0.1.2}%
+\contentsline {section}{\numberline {2}Assumptions and Notations}{4}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Assumptions}{4}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}Notations}{4}{subsection.0.2.2}%
+\contentsline {section}{\numberline {3}Task1: Network Model}{5}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}Network for influence}{5}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {3.2}Music influence}{6}{subsection.0.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Direct influence}{6}{subsubsection.0.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Indirect influence}{7}{subsubsection.0.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Some analysis of subnetworks}{8}{subsection.0.3.3}%
+\contentsline {section}{\numberline {4}Task2: Similarity model and Clustering}{9}{section.0.4}%
+\contentsline {subsection}{\numberline {4.1}Similarity model}{9}{subsection.0.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Preparation of the model}{9}{subsubsection.0.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Establishment of the model}{10}{subsubsection.0.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Hierarchical Clustering}{10}{subsection.0.4.2}%
+\contentsline {section}{\numberline {5}Task3: Similarities and influences}{11}{section.0.5}%
+\contentsline {subsection}{\numberline {5.1}Similarities and influences within the genre}{11}{subsection.0.5.1}%
+\contentsline {subsection}{\numberline {5.2}Similarities, differences and influences between genres}{13}{subsection.0.5.2}%
+\contentsline {subsection}{\numberline {5.3}Changes in genre over time}{13}{subsection.0.5.3}%
+\contentsline {subsection}{\numberline {5.4}The connection between genres}{14}{subsection.0.5.4}%
+\contentsline {section}{\numberline {6}Task4 :The relationship between influencers and followers}{15}{section.0.6}%
+\contentsline {subsection}{\numberline {6.1}The relationship between the works of influencers and followers}{15}{subsection.0.6.1}%
+\contentsline {subsection}{\numberline {6.2}Influence factor}{16}{subsection.0.6.2}%
+\contentsline {section}{\numberline {7}Task5: Features and Leaders for change}{17}{section.0.7}%
+\contentsline {subsection}{\numberline {7.1}Features that produce change}{17}{subsection.0.7.1}%
+\contentsline {subsection}{\numberline {7.2}Explore leaders for change}{18}{subsection.0.7.2}%
+\contentsline {section}{\numberline {8}Task6: Genre evolution}{19}{section.0.8}%
+\contentsline {subsection}{\numberline {8.1}Dynamic index of genre evolution}{19}{subsection.0.8.1}%
+\contentsline {subsection}{\numberline {8.2}Analysis of specific factors}{20}{subsection.0.8.2}%
+\contentsline {subsection}{\numberline {8.3}An analysis of the influence of artists}{21}{subsection.0.8.3}%
+\contentsline {section}{\numberline {9}Task7: Other factors}{22}{section.0.9}%
+\contentsline {section}{\numberline {10}Analysis on Model's Sensitivity}{23}{section.0.10}%
+\contentsline {section}{\numberline {11}Strengths and Weaknesses}{23}{section.0.11}%
+\contentsline {section}{A document to the ICM Society}{24}{section.0.12}%
+\contentsline {section}{References}{25}{section.1.12}%
+\contentsfinish 
