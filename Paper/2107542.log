@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  16 FEB 2023 19:59
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  20 FEB 2023 10:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -827,14 +827,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [2]
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 8
-1.
+2.
 
 (D:\Pro\MiKTeX\tex/latex/psnfss\ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3
 
-] [4]
-Overfull \hbox (11.1435pt too wide) in paragraph at lines 179--180
+]
+Overfull \hbox (11.1435pt too wide) in paragraph at lines 173--174
 []\T1/ppl/m/n/12 We ran-domly se-lected a few au-thors to gen-er-ate the fol-lo
 w-ing net-work as a schematic: 
  []
@@ -843,53 +843,52 @@ File: ./img//network1.png Graphic file (type bmp)
 <./img//network1.png>
 File: ./img//organization.png Graphic file (type bmp)
 <./img//organization.png>
-[5]
+[4]
 File: ./img//all network.png Graphic file (type bmp)
 <./img//all network.png>
- [6]
+ [5] [6]
 File: ./img//maerkefu.png Graphic file (type bmp)
 <./img//maerkefu.png>
  [7]
 File: ./img//easyliten1.png Graphic file (type bmp)
 <./img//easyliten1.png>
 
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 282--283
+Overfull \hbox (9.10683pt too wide) in paragraph at lines 276--277
  [][] 
  []
 
 File: ./img//easylisten2.png Graphic file (type bmp)
 <./img//easylisten2.png>
 
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 287--288
+Overfull \hbox (9.10683pt too wide) in paragraph at lines 281--282
  [][] 
  []
 
 [8]
 File: ./img//importancefeature.png Graphic file (type bmp)
 <./img//importancefeature.png>
- [9]
 File: ./img//similarity.png Graphic file (type bmp)
 <./img//similarity.png>
- [10]
+ [9]
 File: ./img//Hierarchical clustering result.png Graphic file (type bmp)
 <./img//Hierarchical clustering result.png>
+ [10]
 File: ./img//t31.png Graphic file (type bmp)
 <./img//t31.png>
- [11]
 File: ./img//t32.png Graphic file (type bmp)
 <./img//t32.png>
 File: ./img//t33.png Graphic file (type bmp)
 <./img//t33.png>
- [12]
+ [11]
 File: ./img//t34.png Graphic file (type bmp)
 <./img//t34.png>
+ [12]
 File: ./img//t36.png Graphic file (type bmp)
 <./img//t36.png>
- [13]
 File: ./img//t37.png Graphic file (type bmp)
 <./img//t37.png>
- [14]
-Overfull \hbox (4.61543pt too wide) in paragraph at lines 489--490
+ [13] [14]
+Overfull \hbox (4.61543pt too wide) in paragraph at lines 483--484
 []\T1/ppl/m/n/12 From the ta-ble we can get the same char-ac-ter-is-tics of the
 se gen-res, such as Pop/Rock,
  []
@@ -912,7 +911,7 @@ File: ./img//change.png Graphic file (type bmp)
 File: ./img//shijian.png Graphic file (type bmp)
 <./img//shijian.png>
 
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 645--646
+Overfull \hbox (9.10683pt too wide) in paragraph at lines 639--640
  [][] 
  []
 
@@ -921,13 +920,13 @@ File: ./img//f of vocal.png Graphic file (type bmp)
 File: ./img//vocal.png Graphic file (type bmp)
 <./img//vocal.png>
 [20]
-Overfull \hbox (0.49913pt too wide) in paragraph at lines 673--674
+Overfull \hbox (0.49913pt too wide) in paragraph at lines 667--668
 []\T1/ppl/m/n/12 The in-flu-ence of the Pop/Rock genre on the Vo-cal genre is o
 b-vi-ous, as the Pop/Rock
  []
 
 
-Overfull \hbox (2.4918pt too wide) in paragraph at lines 681--682
+Overfull \hbox (2.4918pt too wide) in paragraph at lines 675--676
 []\T1/ppl/m/n/12 Based on the data of his ca-reer re-leases, the char-ac-ter-is
 -tics of his works were counted
  []
@@ -940,7 +939,7 @@ File: ./img//t71.png Graphic file (type bmp)
 File: ./img//lingmin.png Graphic file (type bmp)
 <./img//lingmin.png>
  [23]
-Overfull \hbox (0.45105pt too wide) in paragraph at lines 769--770
+Overfull \hbox (0.45105pt too wide) in paragraph at lines 763--764
 []\T1/ppl/m/n/12 Music, as an es-sen-tial com-po-nent of cul-tural her-itage, c
 on-tains tremen-dous value.In
  []
@@ -948,7 +947,7 @@ on-tains tremen-dous value.In
 [24
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 794--795
+Underfull \hbox (badness 10000) in paragraph at lines 788--789
 []\T1/ppl/m/n/12 Ding Zhu. The his-tory of pop-u-lar mu-sic (se-ri-al-ized five
 ) [J]. Mu-sic
  []
