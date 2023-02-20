@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  20 FEB 2023 10:04
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  21 FEB 2023 05:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -636,7 +636,7 @@ Package: threeparttable 2003/06/13  v 3.0
 (D:\Pro\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )
-LaTeX Font Info:    Trying to load font information for T1+ppl on input line 37
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 38
 .
 
 (D:\Pro\MiKTeX\tex/latex/psnfss\t1ppl.fd
@@ -651,96 +651,39 @@ File: l3backend-xetex.def 2023-01-16 L3 backend support: XeTeX
 \g__pdf_backend_link_int=\count331
 ) (2107542.aux
 
-LaTeX Warning: Label `img' multiply defined.
+LaTeX Warning: Label `tab:pagenum' multiply defined.
 
 
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub.roomhot' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub.roomhot' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub.floorhot' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub.floorhot' multiply defined.
-
-
-LaTeX Warning: Label `fig:hot' multiply defined.
-
-
-LaTeX Warning: Label `fig:ex4-9' multiply defined.
-
-
-LaTeX Warning: Label `fig:ex4-9' multiply defined.
-
-
-LaTeX Warning: Label `fig:ex4-9' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
-
-
-LaTeX Warning: Label `img' multiply defined.
+LaTeX Warning: Label `tab:pagenum' multiply defined.
 
 )
 \openout1 = `2107542.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 3
-7.
+8.
  (D:\Pro\MiKTeX\tex/latex/base\ts1cmr.fd
 File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -778,7 +721,7 @@ LaTeX Font Info:    ... okay on input line 37.
 
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 37.
+(lastpage)             ! on input line 38.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -790,7 +733,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 Package caption Info: subfigure package is loaded.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 37.
+Package hyperref Info: Link coloring ON on input line 38.
  (2107542.out) (2107542.out)
 \@outlinefile=\write4
 \openout4 = `2107542.out'.
@@ -809,12 +752,17 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: dvipdfm (xetex) on input line 98.
 
-)) [1
+))
+Overfull \hbox (11.81491pt too wide) in paragraph at lines 42--43
+\T1/ppl/m/n/12 based on the ARIMA model. We demon-strate a pro-cess that in-clu
+des data pre-processing,
+ []
+
+[1
 
 ] (2107542.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 2.
-
-(D:\Pro\MiKTeX\tex/latex/amsfonts\umsa.fd
+ (D:\Pro\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
@@ -826,150 +774,193 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout5 = `2107542.toc'.
 
  [2]
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 8
-2.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 7
+8.
 
 (D:\Pro\MiKTeX\tex/latex/psnfss\ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3
 
-]
-Overfull \hbox (11.1435pt too wide) in paragraph at lines 173--174
-[]\T1/ppl/m/n/12 We ran-domly se-lected a few au-thors to gen-er-ate the fol-lo
-w-ing net-work as a schematic: 
- []
-
-File: ./img//network1.png Graphic file (type bmp)
-<./img//network1.png>
-File: ./img//organization.png Graphic file (type bmp)
-<./img//organization.png>
-[4]
-File: ./img//all network.png Graphic file (type bmp)
-<./img//all network.png>
+] [4]
+File: ./img//nr.png Graphic file (type bmp)
+<./img//nr.png>
+File: ./img//nra1d.png Graphic file (type bmp)
+<./img//nra1d.png>
  [5] [6]
-File: ./img//maerkefu.png Graphic file (type bmp)
-<./img//maerkefu.png>
+File: ./img//acf.png Graphic file (type bmp)
+<./img//acf.png>
+File: ./img//pacf.png Graphic file (type bmp)
+<./img//pacf.png>
+File: ./img//erhmp.png Graphic file (type bmp)
+<./img//erhmp.png>
  [7]
-File: ./img//easyliten1.png Graphic file (type bmp)
-<./img//easyliten1.png>
+File: ./img//prd.png Graphic file (type bmp)
+<./img//prd.png>
+File: ./img//ARIMA1.png Graphic file (type bmp)
+<./img//ARIMA1.png>
+File: ./img//ARIMA2.png Graphic file (type bmp)
+<./img//ARIMA2.png>
 
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 276--277
- [][] 
- []
-
-File: ./img//easylisten2.png Graphic file (type bmp)
-<./img//easylisten2.png>
-
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 281--282
- [][] 
+Overfull \hbox (6.0pt too wide) in paragraph at lines 249--253
+ [][][][] 
  []
 
 [8]
-File: ./img//importancefeature.png Graphic file (type bmp)
-<./img//importancefeature.png>
-File: ./img//similarity.png Graphic file (type bmp)
-<./img//similarity.png>
- [9]
-File: ./img//Hierarchical clustering result.png Graphic file (type bmp)
-<./img//Hierarchical clustering result.png>
- [10]
-File: ./img//t31.png Graphic file (type bmp)
-<./img//t31.png>
-File: ./img//t32.png Graphic file (type bmp)
-<./img//t32.png>
-File: ./img//t33.png Graphic file (type bmp)
-<./img//t33.png>
+Overfull \hbox (24.84654pt too wide) in paragraph at lines 280--281
+[]\T1/ppl/m/n/12 Table.[][]3[][] and Ta-ble.[][]4[][]are the ANOVA re-sults for
+ these three in-di-ca-tors and two continuous-
+ []
+
+[9]
+File: ./img//Frequency-Means.png Graphic file (type bmp)
+<./img//Frequency-Means.png>
+File: ./img//Frequency-Std.png Graphic file (type bmp)
+<./img//Frequency-Std.png>
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 362--366
+ [][][][] 
+ []
+
+[10]
+File: ./img//Freq-QQ.png Graphic file (type bmp)
+<./img//Freq-QQ.png>
  [11]
-File: ./img//t34.png Graphic file (type bmp)
-<./img//t34.png>
+File: ./img//mcm.excalidraw.png Graphic file (type bmp)
+<./img//mcm.excalidraw.png>
  [12]
-File: ./img//t36.png Graphic file (type bmp)
-<./img//t36.png>
-File: ./img//t37.png Graphic file (type bmp)
-<./img//t37.png>
- [13] [14]
-Overfull \hbox (4.61543pt too wide) in paragraph at lines 483--484
-[]\T1/ppl/m/n/12 From the ta-ble we can get the same char-ac-ter-is-tics of the
-se gen-res, such as Pop/Rock,
+File: ./img//nm act.png Graphic file (type bmp)
+<./img//nm act.png>
+File: ./img//nm act2.jpg Graphic file (type bmp)
+<./img//nm act2.jpg>
+File: ./img//rbfms.png Graphic file (type bmp)
+<./img//rbfms.png>
+ [13]
+File: ./img//pms.png Graphic file (type bmp)
+<./img//pms.png>
+File: ./img//eerie.png Graphic file (type bmp)
+<./img//eerie.png>
+ [14]
+Overfull \hbox (1.64992pt too wide) in paragraph at lines 517--517
+|[]\T1/ppl/b/n/14.4 Hierarchical clustering-based word dif-fi-culty clas-si-fi-
+ca-tion model| 
  []
 
-File: ./img//AL Di.png Graphic file (type bmp)
-<./img//AL Di.png>
 [15]
-File: ./img//factors.png Graphic file (type bmp)
-<./img//factors.png>
+File: ./img//pic1.png Graphic file (type bmp)
+<./img//pic1.png>
  [16]
-File: ./img//t61.png Graphic file (type bmp)
-<./img//t61.png>
- [17]
-File: ./img//t62.png Graphic file (type bmp)
-<./img//t62.png>
+Missing character: There is no ： in font pplr8t!
+[17]
+File: ./img//pic2.png Graphic file (type bmp)
+<./img//pic2.png>
+File: ./img//pic3.png Graphic file (type bmp)
+<./img//pic3.png>
  [18]
-File: ./img//change.png Graphic file (type bmp)
-<./img//change.png>
+File: ./img//pic4.png Graphic file (type bmp)
+<./img//pic4.png>
+File: ./img//pic5.png Graphic file (type bmp)
+<./img//pic5.png>
+File: ./img//pic6.png Graphic file (type bmp)
+<./img//pic6.png>
  [19]
-File: ./img//shijian.png Graphic file (type bmp)
-<./img//shijian.png>
-
-Overfull \hbox (9.10683pt too wide) in paragraph at lines 639--640
- [][] 
- []
-
-File: ./img//f of vocal.png Graphic file (type bmp)
-<./img//f of vocal.png>
-File: ./img//vocal.png Graphic file (type bmp)
-<./img//vocal.png>
-[20]
-Overfull \hbox (0.49913pt too wide) in paragraph at lines 667--668
-[]\T1/ppl/m/n/12 The in-flu-ence of the Pop/Rock genre on the Vo-cal genre is o
-b-vi-ous, as the Pop/Rock
- []
-
-
-Overfull \hbox (2.4918pt too wide) in paragraph at lines 675--676
-[]\T1/ppl/m/n/12 Based on the data of his ca-reer re-leases, the char-ac-ter-is
--tics of his works were counted
- []
-
-File: ./img//Frank.png Graphic file (type bmp)
-<./img//Frank.png>
-File: ./img//t71.png Graphic file (type bmp)
-<./img//t71.png>
-[21] [22]
-File: ./img//lingmin.png Graphic file (type bmp)
-<./img//lingmin.png>
+File: ./img//pic7.png Graphic file (type bmp)
+<./img//pic7.png>
+ [20] [21]
+File: ./img//rhr.png Graphic file (type bmp)
+<./img//rhr.png>
+File: ./img//qqm.png Graphic file (type bmp)
+<./img//qqm.png>
+File: ./img//qqstd.png Graphic file (type bmp)
+<./img//qqstd.png>
+ [22]
+File: ./img//pic8.png Graphic file (type bmp)
+<./img//pic8.png>
  [23]
-Overfull \hbox (0.45105pt too wide) in paragraph at lines 763--764
-[]\T1/ppl/m/n/12 Music, as an es-sen-tial com-po-nent of cul-tural her-itage, c
-on-tains tremen-dous value.In
- []
-
+Missing character: There is no “ in font pplr8t!
+Missing character: There is no ” in font pplr8t!
+Missing character: There is no “ in font pplr8t!
+Missing character: There is no ” in font pplr8t!
 [24
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 788--789
-[]\T1/ppl/m/n/12 Ding Zhu. The his-tory of pop-u-lar mu-sic (se-ri-al-ized five
-) [J]. Mu-sic
- []
-
+Missing character: There is no “ in font pplr8t!
+Missing character: There is no ” in font pplr8t!
+Missing character: There is no – in font pplr8t!
+Missing character: There is no 彭 in font pplr8t!
+Missing character: There is no 天 in font pplr8t!
+Missing character: There is no 奎 in font pplr8t!
+Missing character: There is no 正 in font pplr8t!
+Missing character: There is no 态 in font pplr8t!
+Missing character: There is no 分 in font pplr8t!
+Missing character: There is no 布 in font pplr8t!
+Missing character: There is no 偏 in font pplr8t!
+Missing character: There is no 化 in font pplr8t!
+Missing character: There is no 、 in font pplr8t!
+Missing character: There is no 离 in font pplr8t!
+Missing character: There is no 散 in font pplr8t!
+Missing character: There is no 化 in font pplr8t!
+Missing character: There is no 研 in font pplr8t!
+Missing character: There is no 究 in font pplr8t!
+Missing character: There is no 及 in font pplr8t!
+Missing character: There is no 其 in font pplr8t!
+Missing character: There is no 应 in font pplr8t!
+Missing character: There is no 用 in font pplr8t!
+Missing character: There is no 重 in font pplr8t!
+Missing character: There is no 庆 in font pplr8t!
+Missing character: There is no 理 in font pplr8t!
+Missing character: There is no 工 in font pplr8t!
+Missing character: There is no 大 in font pplr8t!
+Missing character: There is no 学 in font pplr8t!
+Missing character: There is no 李 in font pplr8t!
+Missing character: There is no 振 in font pplr8t!
+Missing character: There is no 亮 in font pplr8t!
+Missing character: There is no 乐 in font pplr8t!
+Missing character: There is no 昕 in font pplr8t!
+Missing character: There is no 雨 in font pplr8t!
+Missing character: There is no 基 in font pplr8t!
+Missing character: There is no 于 in font pplr8t!
+Missing character: There is no 模 in font pplr8t!
+Missing character: There is no 型 in font pplr8t!
+Missing character: There is no 的 in font pplr8t!
+Missing character: There is no 北 in font pplr8t!
+Missing character: There is no 京 in font pplr8t!
+Missing character: There is no 市 in font pplr8t!
+Missing character: There is no 分 in font pplr8t!
+Missing character: There is no 析 in font pplr8t!
+Missing character: There is no 与 in font pplr8t!
+Missing character: There is no 预 in font pplr8t!
+Missing character: There is no 测 in font pplr8t!
+Missing character: There is no 中 in font pplr8t!
+Missing character: There is no 小 in font pplr8t!
+Missing character: There is no 企 in font pplr8t!
+Missing character: There is no 业 in font pplr8t!
+Missing character: There is no 管 in font pplr8t!
+Missing character: There is no 理 in font pplr8t!
+Missing character: There is no 与 in font pplr8t!
+Missing character: There is no 科 in font pplr8t!
+Missing character: There is no 技 in font pplr8t!
 
 AED: lastpage setting LastPage
-[25
-
-] (2107542.aux)
+[25] (2107542.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `2107542.out' has not changed.
-(rerunfilecheck)             Checksum: 8E25300C705C7E62AED1ECD217F7E4CD;8021.
+
+Package rerunfilecheck Warning: File `2107542.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `2107542.out':
+(rerunfilecheck)             Before: FE0D6A4AC71BFF67BF0164A2B5AF29B0;7695
+(rerunfilecheck)             After:  36EBF9296C598C2F3E8F7962B7AD9B81;7686.
  ) 
 Here is how much of TeX's memory you used:
- 17126 strings out of 411511
- 266471 string characters out of 5825408
- 1856001 words of memory out of 5000000
- 37039 multiletter control sequences out of 15000+600000
- 536790 words of font info for 81 fonts, out of 8000000 for 9000
+ 17166 strings out of 411511
+ 266642 string characters out of 5825408
+ 1858001 words of memory out of 5000000
+ 37084 multiletter control sequences out of 15000+600000
+ 532934 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 87i,14n,90p,774b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,13n,90p,1224b,450s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on 2107542.pdf (25 pages).
