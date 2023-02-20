@@ -4,35 +4,34 @@
 \contentsline {section}{\numberline {2}Assumptions and Notations}{4}{section.0.2}%
 \contentsline {subsection}{\numberline {2.1}Assumptions}{4}{subsection.0.2.1}%
 \contentsline {subsection}{\numberline {2.2}Notations}{4}{subsection.0.2.2}%
-\contentsline {section}{\numberline {3}Task1: Network Model}{4}{section.0.3}%
-\contentsline {subsection}{\numberline {3.1}Network for influence}{4}{subsection.0.3.1}%
-\contentsline {subsection}{\numberline {3.2}Music influence}{6}{subsection.0.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Direct influence}{6}{subsubsection.0.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Indirect influence}{7}{subsubsection.0.3.2.2}%
-\contentsline {subsection}{\numberline {3.3}Some analysis of subnetworks}{8}{subsection.0.3.3}%
-\contentsline {section}{\numberline {4}Task2: Similarity model and Clustering}{8}{section.0.4}%
-\contentsline {subsection}{\numberline {4.1}Similarity model}{8}{subsection.0.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Preparation of the model}{8}{subsubsection.0.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.1.2}Establishment of the model}{9}{subsubsection.0.4.1.2}%
-\contentsline {subsection}{\numberline {4.2}Hierarchical Clustering}{10}{subsection.0.4.2}%
-\contentsline {section}{\numberline {5}Task3: Similarities and influences}{11}{section.0.5}%
-\contentsline {subsection}{\numberline {5.1}Similarities and influences within the genre}{11}{subsection.0.5.1}%
-\contentsline {subsection}{\numberline {5.2}Similarities, differences and influences between genres}{12}{subsection.0.5.2}%
-\contentsline {subsection}{\numberline {5.3}Changes in genre over time}{13}{subsection.0.5.3}%
-\contentsline {subsection}{\numberline {5.4}The connection between genres}{13}{subsection.0.5.4}%
-\contentsline {section}{\numberline {6}Task4 :The relationship between influencers and followers}{15}{section.0.6}%
-\contentsline {subsection}{\numberline {6.1}The relationship between the works of influencers and followers}{15}{subsection.0.6.1}%
-\contentsline {subsection}{\numberline {6.2}Influence factor}{16}{subsection.0.6.2}%
-\contentsline {section}{\numberline {7}Task5: Features and Leaders for change}{17}{section.0.7}%
-\contentsline {subsection}{\numberline {7.1}Features that produce change}{17}{subsection.0.7.1}%
-\contentsline {subsection}{\numberline {7.2}Explore leaders for change}{18}{subsection.0.7.2}%
-\contentsline {section}{\numberline {8}Task6: Genre evolution}{19}{section.0.8}%
-\contentsline {subsection}{\numberline {8.1}Dynamic index of genre evolution}{19}{subsection.0.8.1}%
-\contentsline {subsection}{\numberline {8.2}Analysis of specific factors}{20}{subsection.0.8.2}%
-\contentsline {subsection}{\numberline {8.3}An analysis of the influence of artists}{21}{subsection.0.8.3}%
-\contentsline {section}{\numberline {9}Task7: Other factors}{22}{section.0.9}%
-\contentsline {section}{\numberline {10}Analysis on Model's Sensitivity}{23}{section.0.10}%
-\contentsline {section}{\numberline {11}Strengths and Weaknesses}{23}{section.0.11}%
-\contentsline {section}{A document to the ICM Society}{24}{section.0.12}%
-\contentsline {section}{References}{25}{section.1.12}%
+\contentsline {section}{\numberline {3}Task 1: Predicting the number of people reporting}{5}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}Model Selection}{5}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {3.2}Preprocessing}{5}{subsection.0.3.2}%
+\contentsline {subsection}{\numberline {3.3}Training}{6}{subsection.0.3.3}%
+\contentsline {subsection}{\numberline {3.4}Parameter selection}{7}{subsection.0.3.4}%
+\contentsline {subsection}{\numberline {3.5}Model Analysis}{8}{subsection.0.3.5}%
+\contentsline {section}{\numberline {4}Task2: Correlation Analysis}{9}{section.0.4}%
+\contentsline {subsection}{\numberline {4.1}Calculation Method Selection}{9}{subsection.0.4.1}%
+\contentsline {subsection}{\numberline {4.2}Calculation Results and Analysis}{9}{subsection.0.4.2}%
+\contentsline {section}{\numberline {5}Task 3: Predicting the distribution of player attempts}{12}{section.0.5}%
+\contentsline {subsection}{\numberline {5.1}Choosing Probability Distribution Model}{13}{subsection.0.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Model}{13}{subsubsection.0.5.1.1}%
+\contentsline {subsection}{\numberline {5.2}Building a predictive model}{14}{subsection.0.5.2}%
+\contentsline {subsection}{\numberline {5.3}Model solving}{15}{subsection.0.5.3}%
+\contentsline {subsection}{\numberline {5.4}Model analysis}{15}{subsection.0.5.4}%
+\contentsline {section}{\numberline {6}Task 4: Classifying word difficulty}{15}{section.0.6}%
+\contentsline {subsection}{\numberline {6.1}Hierarchical clustering-based word difficulty classification model}{15}{subsection.0.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Indicator selection}{15}{subsubsection.0.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Data pre-processing}{16}{subsubsection.0.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.3}Model building}{16}{subsubsection.0.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.4}Model solving and result display}{17}{subsubsection.0.6.1.4}%
+\contentsline {subsection}{\numberline {6.2}Support vector machine based specific word difficulty classification model}{20}{subsection.0.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Delineating the training test set and data preprocessing}{20}{subsubsection.0.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Model Building}{21}{subsubsection.0.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Model Solving and Results Presentation}{21}{subsubsection.0.6.2.3}%
+\contentsline {section}{\numberline {7}Task 5: Interesting Characteristics of The Dataset}{22}{section.0.7}%
+\contentsline {section}{\numberline {8}Analysis on Model's Sensitivity}{23}{section.0.8}%
+\contentsline {section}{Our Letter}{24}{section.0.9}%
+\contentsline {section}{References}{25}{section.1.9}%
+\contentsline {section}{Appendices}{25}{section*.36}%
 \contentsfinish 

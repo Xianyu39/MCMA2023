@@ -5,7 +5,7 @@
 % \bibliographystyle{plain}
 % 本模板不需要填写年份，以当前电脑时间自动生成
 % 请在以下的方括号中填写队伍控制号
-\usepackage[2307519]{easymcm}  % 载入 EasyMCM 模板文件
+\usepackage[2107542]{easymcm}  % 载入 EasyMCM 模板文件
 \problem{C}  % 请在此处填写题号
 % \usepackage{mathptmx}  % 这是 Times 字体，中规中矩 
 \usepackage{palatino}  % mathpazo 这palatino是 COMAP 官方杂志采用的更好看的 Palatino 字体，可替代以上的 mathptmx 宏包
@@ -16,6 +16,7 @@
 \usepackage{listings}
 \usepackage{paralist}
 \usepackage{setspace}
+\usepackage{appendix}
 
 
  \let\itemize\compactitem
@@ -28,7 +29,7 @@
 % \usepackage{cite}
 % \usepackage{natbib}
 \newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
-\title{A Glimpse of Music Change through Influence Networks}  % 标题
+\title{A Glimpse of Machine Learning through Wordle}  % 标题
 
 % 如需要修改题头（默认为 MCM/ICM），请使用以下命令（此处修改为 MCM）
 %\renewcommand{\contest}{MCM}
@@ -36,27 +37,22 @@
 % 文档开始
 \begin{document}
 \begin{abstract}
-	
-	% (Need to be reviewed)
-	Music is the treasure of humanity. The interplay of artists and genres has also contributed to the continuous development of music. The purpose of this paper is to develop a model for measuring musical influence and to explore the evolutionary and revolutionary trends in examining artists and genres.
-	
-	In \textsc{Task 1}, we treat each artist as a node and represent the node-to-node influence with a directed line segment. Then we quantify the direct influence by adapting the TwitterRank model and quantify the indirect influence by constructing a transmission of indirect influence modeled after \textit{Markov chains}. Finally, by studying the influence of individual nodes in a sub-network, we reveal the important people in this sub-network.
-	
+	In this paper, we analyze the game data posted on twitter by the \emph{New York Times} wordle game players, and provide a method to accomplish the task of analyzing the features of words and quantifying them, and predicting the number of participants and score distribution (The distribution of player attempts) reported on twitter on a future day based on the words of that day.
 
-	
-	% Here is the abstract of your paper.
-	
-	% Firstly, that is ...
-	
-	% Secondly, that is ...
-	
-	% Finally, that is ...
-	
-	% 美赛论文中无需注明关键字。若您一定要使用，
-	% 请将以下两行的注释号 '%' 去除，以使其生效
-	\vspace{5pt}
-	\textbf{Keywords}: ARIMA \quad Discrete Normal Distribution \quad Linear Regression \quad Hierarchical clustering\quad SVM
+In this paper, we first present a method for predicting the number of participants based on the ARIMA model. We demonstrate a process that includes data pre-processing, smoothness testing, parameter selection, and error analysis, and apply the ARIMA model to the problem of predicting the number of reports on a future day based on previous data. A series of validations proved the excellent generalization ability of the model and the accuracy of the prediction described by MSE.
 
+Then, we collected information on the daily usage frequency of words, word roots, and word properties as word features, completed the modeling of wordle words, and used the mean and standard deviation of the distribution of the number of player attempts as a measure of game difficulty. Four metrics describing the impact of words in the game (frequency of daily use, maximum number of repeated letters (MNRL), wordness, and number of word roots) were finally obtained. After ANOVA and calculation of Spearman's correlation coefficient, we found that MNRL significantly affects the percentage of player attempts in the difficult mode, and the larger the MNRL, the higher the percentage of players with multiple attempts and the lower the percentage of players with fewer attempts. The other three indicators do not correlate well with the percentage of attempts.
+
+Next, we fitted the relationship between word and date and the number of player attempts using linear regression, and creatively regressed the percentage of players in seven categories using the parameters of the predicted probability distribution model instead. The problem that the results of linear regression are difficult to be constrained is solved by first predicting the probability distribution function and then calculating the percentage of 7 types of players by the probability distribution function. After analysis, we find that the discrete Gaussian distribution fits the proportion of players in 7 categories better, and the model built by this can achieve a small generalization error.
+
+Then, based on the previous modeling of words and the quantification of difficulty, we also used the hierarchical clustering method to finish the grading of word difficulty, and finally chose the rule of two grades of hard and easy to be more reasonable. After that, we used the WSS formula to measure the impact of each word feature on difficulty MNRL>frequency of use>word nature>number of root words. Finally, an SVM-based word classifier was built to classify unfamiliar words in two grades of difficulty and ease.
+
+In addition, we did many tests to ensure the generalization ability of the above model. And data exploration was done on the dataset to find some interesting properties about player features and player distribution. For example, we found that players in hard mode are harder to lose but also harder to grow; the mean and variance of player attempts also follow normal distribution well, etc.
+
+% Translated with www.DeepL.com/Translator (free version)
+
+	% \vspace{5pt}
+	% \textbf{Keywords}: Markov chains, Random forest algorithm, Hierarchical clustering 
 	
 \end{abstract}
     
@@ -64,21 +60,28 @@
 
 \tableofcontents
 
+
+
+
 % 正文开始
 % Chapter 1: Introduction
 \section{Introduction}
 
 \subsection{Problem Background}
-% Wordle是《纽约时报》提供的一款很受欢迎的小游戏，每天都有许多玩家在Twitter上报告自己的得分。
-% 我们的团队开发了一组模型来研究哪些因素影响了参与Wordle游戏的人数，以及Wordle单词如何影响玩家得分等问题。我们做了如下的工作：
-Wordle is a popular trivia game offered by the New York Times, and many players report their scores on Twitter every day.
-Our team developed a set of models to investigate what factors influence the number of people participating in Wordle games and how Wordle words affect players' scores. We did the following.
+Music has been part of human societies since the beginning of time as an essential component of cultural heritage. There are many factors that can influence an artist's music making, especially between artists. The Integrative Collective Music (ICM) Society has asked our team to develop a model that measures musical influence, examining evolutionary and revolutionary trends of artists and genres.
+The team are provided with the following tasks:
 
 \begin{itemize}
 	\setlength{\parsep}{0ex} %段落间距
 	\setlength{\topsep}{2ex} %列表到上下文的垂直距离
 	\setlength{\itemsep}{1ex} %条目间距
-	\item 
+	\item We use the ARIMA model to predict the number of participants in the report at a future date, giving a prediction interval. A series of tests were conducted to ensure the generalization ability.
+	\item We precisely collected and quantified the word frequency, MNRL (Maximum Number of Repeated Letters), root words, and word properties of the words in the dataset to model the wordle words.  
+	\item We used the mean and standard deviation of the number of player attempts as the word difficulty. We divided the word features into two categories: discrete and continuous data, and evaluated the correlation between them and the mean and standard deviation of attempts, respectively. For the discrete data, we used ANOVA to assess the correlation between the different values. For continuous data, we assessed the correlation between the two continuous data by calculating the Spearman correlation coefficient.  
+	\item We predicted the mean as well as the standard deviation of the number of player attempts based on the four indicators of the word and the date through a linear regression model, and ensured the effect by fitting the player distribution with a probability distribution model.
+	\item For the classification problem, we used a hierarchical clustering method to file the difficulty of all words based on the previously modeled word features, and used the WSS formula to measure the contribution of the four indicators of word attributes to the results and find the word attributes that contribute the most to the results.
+	\item A prediction model for classifying word difficulty based on word attributes was developed to analyze the word attributes of the word EERIE to determine the difficulty of the word. The model performance is analyzed by calculating the corresponding accuracy, recall, and other metrics of the model.  
+	\item In addition, we deeply mined the dataset and found some interesting properties.
 \end{itemize}
 
 \subsection{Our work}
@@ -87,13 +90,13 @@ Our team developed a set of models to investigate what factors influence the num
 	\setlength{\parsep}{0ex} %段落间距
 	\setlength{\topsep}{2ex} %列表到上下文的垂直距离
 	\setlength{\itemsep}{1ex} %条目间距
-	\item We treat each artist as a node and represent the node-to-node influence with a directed line segment. Then we quantify the direct influence by adapting the TwitterRank model and quantify the indirect influence by constructing a transmission of indirect influence modeled after \textit{Markov chains}. Finally, by studying the influence of individual nodes in a sub-network, we reveal the important people in this sub-network. 
-	\item We use the \textit{random forest algorithm} to reduce the dimensionality of the features of artists' works, then vectorize each feature of artists' works, followed by using min-max to normalize the feature values, and then measure the similarity between artists by the \textit{cosine similarity}. Finally, we use \textit{hierarchical clustering method} to analyze the correlation between artists.
-	\item We analyzed the correlations and influences between and within genres, using the Easy Listening genre as an example, in combination with the relationships of influence, and the degree of similarity. Based on this, we then identified the main characteristics of all genre styles.
-	\item Using the artist Al Di Meola as an example, we analyzed the relationship between influence and the degree of similarity of the works in relation to the influence model we developed, and developed further analysis based on each of these characteristics.
-	\item Using the folk genre as an entry point, we analyzed the change curve of each of its characteristic attributes over time, searched for curve inflection points, and identified the influencers of major changes using the similarity metric.
-	\item We defined dynamic indicators of stylistic evolution based on similarity indicators and selected the Vocal genre to analyze in detail the influential process of its musical evolution over time. The artist Frank Sinatra from the Vocal genre is also used as an example to explain the reasons for the stylistic changes of his works over time.
-	\item Combined with other sources, we analyzed the specific impact of environmental and temporal factors on music from four perspectives: political, economic, warfare, and technological.
+	\item We use the ARIMA model to predict the number of participants in the report at a future date, giving a prediction interval. A series of tests were conducted to ensure the generalization ability.
+	\item We precisely collected and quantified the word frequency, MNRL (Maximum Number of Repeated Letters), root words, and word properties of the words in the dataset to model the wordle words.  
+	\item We used the mean and standard deviation of the number of player attempts as the word difficulty. We divided the word features into two categories: discrete and continuous data, and evaluated the correlation between them and the mean and standard deviation of attempts, respectively. For the discrete data, we used ANOVA to assess the correlation between the different values. For continuous data, we assessed the correlation between the two continuous data by calculating the Spearman correlation coefficient.  
+	\item We predicted the mean as well as the standard deviation of the number of player attempts based on the four indicators of the word and the date through a linear regression model, and ensured the effect by fitting the player distribution with a probability distribution model.
+	\item For the classification problem, we used a hierarchical clustering method to file the difficulty of all words based on the previously modeled word features, and used the WSS formula to measure the contribution of the four indicators of word attributes to the results and find the word attributes that contribute the most to the results.
+	\item A prediction model for classifying word difficulty based on word attributes was developed to analyze the word attributes of the word EERIE to determine the difficulty of the word. The model performance is analyzed by calculating the corresponding accuracy, recall, and other metrics of the model.  
+	\item In addition, we deeply mined the dataset and found some interesting properties.
 \end{enumerate}
 
 
@@ -126,10 +129,9 @@ Our team developed a set of models to investigate what factors influence the num
 	\setlength{\parsep}{0ex} %段落间距
 	\setlength{\topsep}{2ex} %列表到上下文的垂直距离
 	\setlength{\itemsep}{1ex} %条目间距
-	\item The relationship of influence between artists is related to their works, not their lives.
-	\item The same artist can only belong to one genre. 
-	\item The relationship of influence between artists is credible and real. 
-	\item The effect between genres is considered only for the genre given in the data and does not include other genres.  
+	\item Most players only report the results of their first attempt at the game each day; (the average player has no incentive to try multiple times or to ask others for answers to improve their score)
+	\item there were no chance events that seriously affected the number of participants in the game; (such events occurred very rarely)
+	\item the selection of wordle words for each day is independent and random. (The staff in charge of the game usually selects the words in this way to keep it interesting)
 \end{itemize}
 
 \subsection{Notations}
@@ -139,659 +141,667 @@ Our team developed a set of models to investigate what factors influence the num
 		\hline
 		\hline
 		\multicolumn{1}{c}{\textbf{Notations}} & \textbf{Definition}\\ \hline
-		$p_{ij}$                      & the direct influence from $i$ to $j$                      \\
-		$q_{nn+2}$                      & the indirect influence from n to n+1                      \\
-		$\mathcal{P}$                       & the attenuation degree of the influence                      \\
-		$\eta$                      & the effective quantity for information                      \\
-		$Inf_{i}$                      & the music influence of $i$                      \\
-		$C_{ij}$                      & the similarity between $i$ and $j$                      \\
-		$\varphi _(t)$                      &  Variance of similarity over time                     \\
-		$\psi _(t)$                      & Activity changes with time                     \\
-		$d_{ij}$                      & distence between $i$ and $j$                      \\                     
+		$p_{X}$ &  The probability of $X$              \\                     
+		$\mu_{X}$  & The mean of $X$              \\                     
+		$\sigma_{X}$ &  The standard deviation of $X$              \\  
+		$s(i)$ & Contour factor \\                   
 		\hline
 		\hline
 	\end{tabular}
 	\caption{Notations Table}
 \end{table}
-\section{Task1: Network Model}
-\subsection{Network for influence}
+\section{Task 1: Predicting the number of people reporting}
+\subsection{Model Selection}
+In order to find the general pattern in the dataset, we expressed the dates in days and made a simple visualization of the date-reporting data in the dataset (Figure 1). It is easy to find that the number of reports fluctuates both overall and locally in the initial period; after a period of time, excluding some outliers, both the overall and local trends tend to level off. Based on such features, we believe that the number of reporters will maintain this trend in general and fluctuate locally in the future period not given in the data set. Therefore, an ARIMA time series forecasting model suitable for local periodic fluctuations can be considered to fit this curve for the purpose of predicting the number of reports in the near future period.
 
-By observing the data, we find that each piece of data often contains several parts. The first is the unique ID of the influencer and the ID of the followers. So for these $n$ authors, we can use an $n\times n$ matrix to record the influence relationships between them.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{nr.png}
+	\caption{number of reports with times}
+	\label{img1}
+\end{figure}
+
+\subsection{Preprocessing}
+First, for all experiments mentioned in this paper, data with columns containing outliers removed should be used. The outliers here are mainly words that do not conform to the rules of the Wordle game (e.g. words with a number of letters other than 5).
+
+The data used for the training process must be relatively "smooth" for the ARIMA model to work well. We often use ADF (Augmented Dickey-Fuller) to verify the smoothness of the data, and use the difference method to eliminate the unsteadiness so that it meets the conditions needed for the ARIMA model. Figure 2 shows the image of the original data after one round of differencing.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{nra1d.png}
+	\caption{number of reports after 1 difference}
+	\label{img2}
+\end{figure}
+
+Comparing with Figure. 1, the overall trend of the data after one round of differencing is observed to be completely smooth. The results of the ADF validation (Table 2) show that the value of the ADF statistic is smaller than each critical value, so it indicates that the data after one round of differencing is smooth, and the ARIMA model can be used to predict the number of people reporting on a future day.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+        \textbf{Parameters} & \textbf{values} \\ \hline
+        ADF statistic & -5.465670 \\ \hline
+        p-value & 0.000002 \\ \hline
+        Lags Used & 17 \\ \hline
+        Number of observations & 336 \\ \hline
+        Threshold 1 & -3.449963 \\ \hline
+        Critical value 5 & -2.870181 \\ \hline
+        Critical value 10 & -2.571373 \\ \hline
+    \end{tabular}
+	\caption{The results of ADF validation}
+\end{table}
+
+
+\subsection{Training}
+The training is preceded by first partitioning the dataset. In order to calculate the generalization error and adjust the parameters, we divide the dataset into three parts: training, validation, and testing. First, the data set is partitioned into a 4:1 training set and a test set according to the hold out method, and then the training set is partitioned into a 4:1 training set and a validation set in the same way. In this way, the training set, validation set, and test set occupy 64\%, 16\%, and 20\% of the original data set, respectively. Among them, the test set is used to measure the generalization error and is not involved in training; the validation set is used to adjust the parameters to obtain the best model.
+
+The error of the training model is described by the mean square error MSE.
 \begin{equation}
-\begin{pmatrix}
-a_{11}&a_{12}&\cdots&a_{1n}\\
-a_{21}&a_{22}&\cdots&a_{2n}\\
-\vdots&\vdots&\ddots&\vdots\\
-a_{n1}&a_{n2}&\cdots&a_{nn}\\
-\end{pmatrix}
+E(D;f)=\frac1n\sum_{(x,y)\in D}(f(x)-y)^2
 \end{equation}
-Where the value of $a_{ij}$ is 1 or 0, indicating whether the author $i$ has influence on the author $j$, respectively. 
 
-So from this matrix we can generate a network. We use nodes to represent each writer. Directed line segments are used to indicate that one node has a relationship to another node.
-We also use different colors to indicate the different schools that writers belong to.
+where E denotes the mean square error; D denotes the dataset used for testing; f denotes the model obtained from training; f (x) is the y-value predicted by the model for x; and n is the size of D. A larger MSE means a worse model fit.
 
-We randomly selected a few authors to generate the following network as a schematic:
+\subsection{Parameter selection}
+
+The ARIMA model mainly consists of the AR (Autoregressive) model and MA (Moving Average) model. These two models require the selection of two main parameters.
+\begin{itemize}
+	\item The order p of the AR model, which is chosen by observing the partial autocorrelation function (PACF) plot.
+	\item The order q of the MA model, which is chosen by observing the autocorrelation function (ACF) plot.
+\end{itemize}
+Plotting the ACF and PACF plots (figure 3), it is not difficult to find that both functions converge rapidly to flatness. In order to explore the best order choice, we search for the combination of p, q values that enter the plateau to find the set that minimizes the MSE of the model prediction validation set.
+\begin{figure}[H]
+	\centering    
+	\subfigure[ACF]{				% 图片1([]内为子图标题)
+		\label{fig:sub.roomhot}							% 子图1的标签
+		\includegraphics[width=0.3\textwidth]{acf.png}}% 子图1的相对位置
+	\subfigure[PACF]{				% 图片2
+		\label{fig:sub.floorhot}						% 子图2的标签
+		\includegraphics[width=0.3\textwidth]{pacf.png}}% 子图2的相对位置
+	\caption{ACF and PACF plots}		% 总图标题
+	\label{img3}									% 总图标签
+\end{figure}
+The thermal diagram of the MSE for each combination of parameters tested is shown in the figure 4.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{erhmp.png}
+	\caption{Heat map of MSEs}
+	\label{img4}
+\end{figure}
+
+The optimization method used here is \textbf{innovations mle}, and the training results prove that this optimizer converges most easily to obtain the most effective parameter combinations. As shown in the figure, the parameter combination with the smallest standard deviation is $p=18,q=8$.
+
+In summary, the predicted data are obtained after the inverse difference of the prediction results. 27,540 people are predicted to report on March 1, 2023; there is 90\% confidence that the number of people reporting on that day is between [0, 49485](figure 5).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{prd.png}
+	\caption{final result}
+	\label{img5}
+\end{figure}
+
+\subsection{Model Analysis}
+Using the most suitable combination of parameters obtained from the measurement, it is used for the test set to measure the generalization error. Since we took one difference, we used it as a test set after one difference to test it and obtained its generalization error MSE as $1.499\times 10^7$. As shown in the figure 6, except for individual outliers, the ARIMA model still has a predictive effect on this kind of data with strong local fluctuations.
+\begin{figure}[H]
+	\centering    
+	\subfigure[Global]{				% 图片1([]内为子图标题)
+		\label{fig:sub.roomhot4}							% 子图1的标签
+		\includegraphics[width=0.5\textwidth]{ARIMA1.png}}% 子图1的相对位置
+	\subfigure[Local]{				% 图片2
+		\label{fig:sub.floorhot4}						% 子图2的标签
+		\includegraphics[width=0.5\textwidth]{ARIMA2.png}}% 子图2的相对位置
+	\caption{prediction data with origin data}		% 总图标题
+	\label{img34}									% 总图标签
+\end{figure}
+
+In addition, because of the insufficient data in the dataset, it is not enough to make the model converge for all combinations of parameters involved in the test. It is also possible to consider collecting more datasets or using more advanced training methods to obtain better results.
+
+As explained in the previous section, the date and word itself affect the distribution of wordle players' attempts (or the distribution of scores), so we can try to build a model to predict the proportion of players with each score using each feature of the date and word.
+
+\section{Task2: Correlation Analysis}
+
+The correlation between the percentage of each score and the mean as well as the standard deviation is strongly related, and the correlation between the word features and the percentage can be obtained by correlation analysis of the word features as well as the mean and standard deviation.
+
+\subsection{Calculation Method Selection}
+
+We used the correlation coefficient to represent the two-by-two relationship between the four word indicators of word frequency, MNRL, root word, and word nature and the mean and standard deviation of the number of attempts.
+
+Since the mean and standard deviation of the number of attempts are continuous data, and the four word indicators are not uniformly continuous or not, in order to calculate the correlation coefficients between the data as accurately as possible, we adopted two different calculation methods: ANOVA and Spearman's correlation coefficient.
+
+For the three features of MNRL, word roots, and word properties, whose are all discrete indicators, we chose to use ANOVA.
+
+For the continuous type of word frequency, we chose to use Spearman's correlation coefficient or Pearson's correlation coefficient for evaluation.
+
+
+\subsection{Calculation Results and Analysis}
+
+As an example: MNRL has two classifications, 1 and 2, and we extract the mean and standard deviation of the number of attempts corresponding to each of them. The variance of these two consecutive values is calculated. A t-test can be used to calculate the t-value and the p-value. (The t-value can be a standardized measure of the difference in means between two groups of data, and the p-value indicates a statistic for the significance of the t-test results, with the p-value pre-set at 0.05 and less than 0.05 indicating a significant difference)
+
+Table.\ref{tab:tdata} and Table.\ref{tab:pdata}are the ANOVA results for these three indicators and two continuous-type indicators.
+
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|c|
+		}
+		
+		\hline
+		T-value 	& MNRL	& root	 & character \\ 
+		\hline
+		Means	& -7.14		& -0.66		 & -0.96  \\ 
+		\hline 
+		Stddev & 1.921 		& -0.77		 & -0.56  \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{T-value data}
+	\label{tab:tdata}
+\end{table*}
+
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|c|
+		}
+		
+		\hline
+		P-value 	& MNRL	& root	 & character \\ 
+		\hline
+		Means	& 0.00  &  0.51 & 0.49 \\ 
+		\hline 
+		Stddev & 0.06 & 0.44 & 0.55  \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{P-value data}
+	\label{tab:pdata}
+\end{table*}
+By observing the data in the above table, we can find that the two indicators of word root and word nature have little relationship with the mean value of the number of attempts and the standard deviation, while Means is highly correlated with the values of MNRL, and Stddev is not significantly correlated with MNRL.
+
+We calculated the $\mu$ and $\sigma$ values for different values (1 and 2) of Means in MNRL, and the results are as follows.
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|
+		}
+		
+		\hline
+		$\mu$ 	& MNRL=1 & MNRL=2 \\ 
+		\hline
+		Means	& 4.10  &  4.42 \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{Means' $\mu$  of different MNRL}
+	\label{tab:miu}
+\end{table*}
+
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|
+		}
+		
+		\hline
+		$\sigma$ 	& MNRL=1 & MNRL=2 \\ 
+		\hline
+		Means	& 0.37  &  0.38 \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{Means' $\sigma$ of different MNRL}
+	\label{tab:sigma}
+\end{table*}
+
+We can find that the Means values for different values of MNRL vary widely, and the standard deviations are small and similar in the same category; we can thus conclude how MNRL affects the average number of attempts: when MNRL is 1, the average number of attempts is 4.10, and when it is 2, the average number of attempts is 4.42. This shows that the difficulty increases significantly.
+
+The following is the basis for the choice of Spearman and Pearson to see if the linear relationship as well as the normal distribution is met.
+
+To visualize Frequency-Means as well as Frequency-Std.
 
 \begin{figure}[H]
 	\centering    
-	\subfigure[organization1]{				% 图片1([]内为子图标题)
-		\label{fig:sub.roomhot}							% 子图1的标签
-		\includegraphics[width=0.3\textwidth]{network1.png}}% 子图1的相对位置
-	\subfigure[organization2]{				% 图片2
-		\label{fig:sub.floorhot}						% 子图2的标签
-		\includegraphics[width=0.3\textwidth]{organization.png}}% 子图2的相对位置
-	\caption{Organization}		% 总图标题
-	\label{fig:hot}									% 总图标签
+	\subfigure[Mean]{				% 图片1([]内为子图标题)
+		\label{fig:sub.roomhot5}							% 子图1的标签
+		\includegraphics[width=0.5\textwidth]{Frequency-Means.png}}% 子图1的相对位置
+	\subfigure[Std]{				% 图片2
+		\label{fig:sub.floorhot5}						% 子图2的标签
+		\includegraphics[width=0.5\textwidth]{Frequency-Std.png}}% 子图2的相对位置
+	\caption{Frequency with *}		% 总图标题
+	\label{img35}									% 总图标签
 \end{figure}
 
 
-By combining all the artists' information into a matrix and generating a network, we will have a vast and complex network. In order to better analyze the network, we integrated our network into blocks, imitating the concept of community in complex network theory. Community structure defines a group of nodes in the network that are closely connected internally and sparsely connected externally as a community. These nodes usually have the same attributes or similar functions. Then in our network, we can artificially define a group of nodes belonging to artists of the same genre as a community.
+It is found that there is no linear relationship between Frequency-Means as well as Frequency-Std.
 
-The schematic diagram is as figure1(b):
-
-Obviously, the community structure of this network is non overlapping, that is, each node can only belong to one community. This is a very important point. Through this point, we can use a larger node to replace the community, so that we can more intuitively observe the whole network. At the same time, we make the thickness of the directed line segment from node a to node B proportional to the number of small nodes in node A that affect the small nodes in node B.
-
-In this way, we get a network graph based on all the data. Through this network graph, we can intuitively see the relationship between different communities and the important position of a community in the whole music field.
+In the following, we have made Q-Q plots for Means, Std, and Frequency to determine whether the three indicators conform to a normal distribution by comparing the quartiles of the three indicators with the quartiles of the expected distribution.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.6\textwidth]{all network.png}
-	\caption{network for all the nods at the community level}
-	\label{img}
+	\includegraphics[width=.6\textwidth]{Freq-QQ.png}
+	\caption{Frequency-QQ}
+	\label{img22}
 \end{figure}
 
-From this, we can roughly observe that pop, R\&B, country and electronic play an important role in the whole history of music development.
+By visual observation, Frequency did not conform to the normal distribution.
 
-\subsection{Music influence}
-\subsubsection{Direct influence}
+Based on the above two factors, we found that the premise of Pearson correlation coefficient calculation was not satisfied, so we chose to use Spearman correlation coefficient for calculation.
 
-The influence of nodes in the network has been studied for a long time. Many scholars such as singla and Goyal\upcite{1} define the influence as the similarity and correlation between nodes. However, based on the data given in influence date, we can not understand the similarity between artists. The only similarity is whether these artists belong to the same school, that is, whether these nodes belong to the same community. Therefore, we introduce the twitterrank model proposed by Jianshu Weng:
-\begin{equation}
-p_{ij}=\frac{| T_j|  }{\Sigma_{\alpha : \text{i follows $\alpha$} } T_{j}}\cdot sim_{ij} 
-\end{equation}
-It's the influence of user i on user j. It should be noted that this model is proposed to study the influence among users in social networks. So we only need to understand its general idea, in which $sim$ represents the similarity between users. The first item on the right of the equation expresses the degree of difficulty that the message sent by the influencer is accepted by the follower.
-Based on the communication theory of community network structure, a piece of information is easier to spread within a community. At the same time, for nodes in the same community, they should have higher similarity. In order to determine the similarity between the two, we use entropy weight method to make a simple comparison: The similarity of same organization is 0.6337, The similarity of different organization is 0.3662.
+We can calculate Spearman correlation coefficients and p-values of word frequencies with Means and Stddev, respectively, by sorting each indicator from smallest to largest and calculating the position difference as well as the sum of position differences after sorting, as follows.
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|
+		}
+		
+		\hline
+		Spearman correlation coefficient 	& Means & Stddev \\ 
+		\hline
+		Frequency	& -0.018  &  -0.044 \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{Spearman correlation coefficient}
+	\label{tab:Spearson-f}
+\end{table*}
 
-According to the information obtained, it is determined that the $sim$ between two nodes belonging to the same community is 0.63, while the $sim$ between two nodes in different communities is 0.36.
+\begin{table*}
+	\centering
+	\begin{tabular}{  |c|c|c|
+		}
+		
+		\hline
+		P-value 	& Means & Stddev \\ 
+		\hline
+		Frequency	& 0.742  &  0.407 \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{P-value}
+	\label{tab:Spearman-f-p}
+\end{table*}
+By evaluating the observation of the above four indicators, we can conclude that word frequency has little relationship with the mean as well as the standard deviation of the number of attempts.
 
-Then we determine the first term on the right side of the equation, because a piece of information is more easily spread within a community, so it has a greater weight in the influence on the followers. Meanwhile, we consider that the difficulty of information transmission between two nodes increases with the increase of time. So let's write this quantity in terms of $\eta $.
-We call it the effective quantity of information.
-\begin{equation}
-\eta_{ij}=
-\begin{cases}
-\frac{\rho_1}{log_{\overline{time}}time} &\text{If they belong to the same community}\\
-\frac{\rho_2}{log_{\overline{time}}time} &\text{If they belong to diffferent communities}
-\end{cases}
-\end{equation}
-Among them, $\rho _1$ and $\rho _2$ are the transmission difficulty coefficients of the same music genre and different music genres respectively. 
-By consulting the music research materials, we set them as 1 and 0.65.
-We use log function to represent the decay of effective value of information over time, $time$ is the time difference between two nodes.
 
-So we get the following formula: 
-\begin{equation}
-\begin{cases}
-\frac{\sum_{\gamma :\text{who follows the node i}} \eta _{i\gamma }}{\sum_{\alpha :\text{who the node j follows}; s:\text{who follows $\alpha$ }}  \eta _{\alpha s}}\cdot 0.63 &\text{If they belong to the same community} \\
-\frac{\sum_{\gamma :\text{who follows the node i}} \eta _{i\gamma }}{\sum_{\alpha :\text{who the node j follows}; s:\text{who follows $\alpha$ }}  \eta _{\alpha s}}\cdot 0.36 &\text{If they belong to diffferent communities}
-\end{cases}
-\end{equation}
-
-Consistent with twi model, $p_{ij}$ represents the influence of node i on node j, and the first term on the right of the equation represents the difficulty degree of the influence of node i on node j, which is reflected by the ratio of $\sum_{\gamma :\text{who follows the node i}} \eta _{i\gamma }$ and $\sum_{\alpha  :\text{who the node j follows};s:\text{who follows $\alpha $}} \eta _{\alpha s }$. In short, in a network, the larger the degree of a node, the easier it is to affect other nodes.
-
-\subsubsection{Indirect influence}
-At the same time, we take into account the indirect influence factor, an influential artists often influence on his following the often with what he has to follow the influence of the artist For this kind of node between the process of passing from one generation to another, we simulate markov chain, the state and the state transition probability between replace influence of transmission attenuation degree between nodes:
+\section{Task 3: Predicting the distribution of player attempts}
+Since the sum of the player shares for each score must be 100\%, it would be difficult to satisfy this feature if the player shares for all 7 attempts were predicted by the model. However, we note that if we fit the 7 player categories with a probability density function, we can avoid this problem by using the model to predict only the probability density function. We decided to first fit the relationship between the number of attempts and the percentage using a probability density function of a probability distribution model, and then use the parameters of that probability distribution model (e.g., mean and variance of the Gaussian distribution; $\lambda$ of the Poisson distribution; degrees of freedom of the chi-square distribution, etc.) to determine the probability density function. After that, the problem is reduced to predicting these parameters using time and word features, and then using these parameters to determine the probability density function as a fitting function for the number of attempts and the percentage of players to calculate the percentage, without having to consider that the sum of the percentages must be 100\%. The schematic is shown in Figure 9.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{maerkefu.png}
-	\caption{Indirect influence transmission chains}
-	\label{img}
+	\includegraphics[width=.9\textwidth]{mcm.excalidraw.png}
+	\caption{Model structure}
+	\label{img8}
 \end{figure}
 
-In this process, we first assume that the node to which the follower belongs is inactive, and the influence of node n on node n+1 is $\eta_{nn+1} $, then the indirect influence of node n+1 on the node of the n+2 generation belonging to the first generation is:
+Next we need to:
+\begin{itemize}
+	\item Select a suitable probability distribution model.
+	\item Establish the parameters for predicting the probability distribution model with date and word features, and confirm the probability density function used for the fit.
+\end{itemize}
+
+\subsection{Choosing Probability Distribution Model}
+\subsubsection{Model}
+In the data set, we can calculate the mean and standard deviation of the number of attempts for each word, which we think is of great significance for the percentage of attempts.
+	
+The normal distribution is an important continuous-type probability distribution that is widely found in nature and social phenomena. For example, the distribution of students' grades and the distribution of players' game scores are typical examples of normal distributions. In the context of Wordle game, we can consider the number of attempts of a player as the score of the game.
+
+Then if the scores of Wordle are continuous, we can assume that the scores of the game satisfy the normal distribution very well.
+	However, the game's score (number of player attempts) has only 7 values (1 try, 2 tries, 3 tries, 4 tries, 5 tries, 6 tries, and more than 7 tries), which does not meet the requirements of a normal distribution with continuous data. So we chose to use the discrete normal distribution model [1], where the percentage of a certain number of tries can be found by integrating over the probability interval.
+	The specific process is as follows.
+We first establish a function of normal distribution for each data by taking the mean ($\mu$) and standard deviation ($\sigma$) of the number of player attempts for each data as parameters.
+% (正态分布方程 ！！！！！！！！！！！！！！！)  
 \begin{equation}
-q_{nn+2}=\frac{p _{nn+1}q_{nn+1}}{\Sigma p _{n+1}}\mathcal{P}  
+	f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{(x-\mu)^2}{2\sigma^2})
 \end{equation}
-Where $\Sigma p _{n+1}$ represents the sum of the direct influence of all other nodes on node n+1, and $\mathcal{P}$ represents the attenuation degree of the indirect influence of node n on node n+2.
-
-Obviously, $0\leqslant \mathcal{P} \leqslant 1$, So in this network, starting from node n, any node that can be reached through a directed segment will be indirectly influenced by node n so the indirect influence of node n should be the sum of these values, which is obviously of the form $\Sigma \alpha _{n}\mathcal{P} ^{n}$. So even though the whole network is huge, this value should converge. However, in order to prevent some artists from making this value too large to be reasonable due to the large number of indirect influences, we set a threshold $\mathbf{Q} $. When the indirect influence on a certain transmission chain is less than this threshold $\mathbf{Q} $, the transmission ends.
-
-Here we set $\mathcal{P} $ as $0.5$, and we will test the sensitivity at the end of the paper.
-So we get a quantitative measure of the total amount of influence that a node generates:
+At this point, if we want to find the percentage of player attempts for x (1<=x<=7), we can integrate the probability function x-0.5 to x+0.5 for this interval with the following formula.
+% (积分方程 ！！！！！！！！！！)  
 \begin{equation}
-Inf_{i}=\Sigma p_{i}+\Sigma q_{i}
+	\frac{1}{\sqrt{2\pi}\sigma}\int^{x+0.5}_{x-0.5}e^{-\frac{(t-\mu)^2}{2\sigma^2}}dt
 \end{equation}
-Where $\Sigma p_{i}$ represents the sum of the quantized values of the direct influence of all nodes directly pointed to by node i, and $\Sigma q_{i}$ represents the sum of the quantized values of the indirect influence of all nodes having an indirect influence relationship with node i.
-
-At the same time, through the reference of music history. We find that in the study of music history, people regard the connection between the three generations as a kind of inheritance. So we make $Q$ a little less than the indirect influence of the third generation artists. This can greatly simplify the calculation of the program.
-
-\subsection{Some analysis of subnetworks}
-
-We take the internal network of easy listening as the initial network, select all the artists associated with it from the whole complex network and join it to form a sub network.
-
-
-\begin{figure}[H]
-	\centering
-	\begin{minipage}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=8cm]{easyliten1.png}
-		\caption{the subnetworks (different genres with different colors)}
-	\end{minipage}
-	\begin{minipage}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=8cm]{easylisten2.png}
-		\caption{color depth with influence}
-	\end{minipage}
-\end{figure}
-
-Through the comparison of the two pictures, we can clearly see that the artists who have a great influence in this sub network are the founders of this genre and some influential figures in this genre. By looking up the history of music, we find that Andr and Liberace, which correspond to these points, have a relatively important influence in this genre. At the same time, we found that some artists outside the genre, such as Raymond, also had a greater impact, because in the whole network, they had enough influence to influence other genres. This also verifies that the influence index inf established by us can well reflect the specific influence of an artist.
-
-
-\section{Task2: Similarity model and Clustering}
-\subsection{Similarity model}
-\subsubsection{Preparation of the model}
-
-For the quantification model of music similarity, we first extract the eigenvalues from the data set. Fortunately, the data set has classified the features of the song for us, and quantified each feature. But there are a lot of these features.
-
-Therefore, we need to reduce the dimensionality of the data before building the similarity model.
-
-We use the random forest algorithm to reduce its dimensionality,First we define the information entropy:
-\begin{equation}
-H(X)=-\sum_{i=1}^{n} m_{i} \log \left(m_{i}\right)
-\end{equation}
-where $m_{i}$  is the probability of occurrence of the event. After that we define the conditional entropy:
-\begin{equation}
-H(Y \mid X)=H(X, Y)-H(X)
-\end{equation}
-The information gain:
-\begin{equation}
-g(D, A)=H(D)-H(D \mid A)=I(D, A)
-\end{equation}
-The decision tree uses the Bootstrap Aggregating method to obtain the information gain of the features, and if the information gain is greater, the feature importance is greater.
-
-We calculated all the eigenvalues and obtained their importance:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\textwidth]{importancefeature.png}
-    \caption{feature importance}
-    \label{img}
-\end{figure}
-We set the valve field to 0.5, and we can see that the two quantities, Key and Mode, are obviously smaller than other quantities and are smaller than the valve field, so we eliminate these two eigenvalues.
-
-\subsubsection{Establishment of the model}
-Next, we take a set of eigenvalues of an artist as a vector:
-\begin{equation}
-\overrightarrow{X_i } =( x_{i1},x_{i2},\dots,x_{i12})
-\end{equation}
-
-They correspond to a, b, c, d of the artist $i$.
-
-Then, for the similarity between any two artists, we can express it by the cosine of the Angle between two vectors.
-\begin{equation}
-C_{ij}=\frac{\overrightarrow{X_i}\cdot \overrightarrow{X_j}  }{\sqrt{\sum_{n = 1}^{12}x_{in}^2\cdot \sum_{n = 1}^{12}x_{jn}^2  } } 
-\end{equation}
-Obviously, the closer the absolute value of $c_{ij}$ is to 1, the higher the correlation. For the similarity, when $C_{ij}$ is low, it means that they are quite different.
-
-Now, of course, up until this point, because each of these data classes have different dimensions, we normalized the data and we used what is called min-max Normalization. The transformation formula is as follows:
-\begin{equation}
-x^{*}=\frac{x-min}{max-min}
-\end{equation}
-
-To understand the relationship between artists and genres, we randomly selected ten artists from different genres, calculated their similarity to each other, and produced the following heat map:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.5\textwidth]{similarity.png}
-    \caption{similarity}
-    \label{img}
-\end{figure}
-\subsection{Hierarchical Clustering}
-Then we conduct hierarchical clustering of these artists according to their similarity, so that we can get a classification map of them. By comparing this classification with their genre, we can know whether the similarity between artists is related to their genre.
-
-Hierarchical clustering is a common way to categorize the data, here we stated briefly about this method First of all, we use the reciprocal of the similarity between artists to represent the distance $d_{ij}$ between $i$ and $j$:
-\begin{equation}
-d_{ij}=\frac{1}{c_{ij}}
-\end{equation}
-But for those nodes with negative similarity, we assume that the distance between them is greater than the distance between any set of nodes with positive similarity. Therefore, we define the distance between them as:
-\begin{equation}
-d_{ij}=1+\frac{1}{c_{ij}}
-\end{equation}
-And then all of the minimum distance $d_{pq}$ consolidation of the artists who are $p$ and $q$ involved into a class $r$, and that he and other artists is defined as the distance between them both average distance with other artists.
-
-That is:
-\begin{equation}
-d_{rs}=\frac{1}{2}(d_{ps}+d_{qs})
-\end{equation}
-And so on until everyone is in the same category. 
-
-
-The result is shown in the figure:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.4\textwidth]{Hierarchical clustering result.png}
-    \caption{Hierarchical clustering result}
-    \label{img}
-\end{figure}
-
-We can see that in the same genre blues1 and blues2, jazz1 and jazz2 indeed have a higher similarity, that is to say, the artist has a higher similarity of the same genre But some artists may be in a border of two schools, the birth of at the same time they also bring some changes to the genre and development.
-
-\section{Task3: Similarities and influences}
-\subsection{Similarities and influences within the genre}
-In order to compare the degree of similarity and influence within genres, we need to compare the similarity of the styles of some artists within a specific genre.
-
-We have selected some of the artists in the Easy Listening genre as examples for our analysis, and their influence relationships are shown in the figure below:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{t31.png} 	% 图片相对位置
-	\caption{Selected artist-influenced relationships in the Easy Listening genre}		% 图片标题 
-	\label{fig:ex4-9}
-\end{figure}
-
-We first examine the three artists Liberace, Arthur Lyman, and Ferrante \& Teicher, according to the figure above, Liberace influenced Arthur Lyman and Ferrante \& Teicher, and we select the average of all three of their works based on their influence. The results are shown below. The results are shown in the following figure:
+In order to verify the applicability of the discrete normal distribution model in the context of this problem, we validated the discrete normal distribution model with data from the dataset. The results performed well, and some of the results are shown below.
 
 \begin{figure}[H]
 	\centering    
-	\subfigure[Comparison of the styles of Liberace, Arthur Lyman, Ferrante \& Teicher's works]{				% 图片1([]内为子图标题)
-		\label{fig:sub.roomhot}							% 子图1的标签
-		\includegraphics[width=0.5\textwidth]{t32.png}}% 子图1的相对位置
-	\subfigure[Comparison of the styles of Arthur Lyman and Martin Denny's works]{				% 图片2
-		\label{fig:sub.floorhot}						% 子图2的标签
-		\includegraphics[width=0.45\textwidth]{t33.png}}% 子图2的相对位置
-	\caption{Comparison of artisits}		% 总图标题
-	\label{fig:hot}									% 总图标签
+	\subfigure[]{				% 图片1([]内为子图标题)
+		\label{fig:sub.roomhot3}							% 子图1的标签
+		\includegraphics[width=0.3\textwidth]{nm act.png}}% 子图1的相对位置
+	\subfigure[]{				% 图片2
+		\label{fig:sub.floorhot3}						% 子图2的标签
+		\includegraphics[width=0.3\textwidth]{nm act2.jpg}}% 子图2的相对位置
+	\caption{some typical results}		% 总图标题
+	\label{img33}									% 总图标签
 \end{figure}
+% 全部图形的链接为：（！！！！！！！！！）
 
 
-From the figure, we can see that the three artists remain highly similar in duration, speechiness, tempo, and loudness, verifying that Arthur Lyman and Ferrante \& Teicher are influenced by Easy Listening in several distinctive aspects. Liberace, but the differences in liveness are significant, suggesting that as the network evolves, the later members of the genre perform less live. Moreover, danceability, energy, and validity have all improved compared to Liberace in the 1940s, suggesting that the music of Easy Listening was gradually developed to be more danceable, energetic, and active.
-
-After that, we then analyzed the characteristics of the works of Arthur Lyman and the follower Martin Denny, and the results are shown in Figure 10(b)
-
-From the diagram, we can find that the characteristics of Arthur Lyman and Martin Denny's works are mostly similar, except for the three characteristics of energy, liveness, and instrumentalness, which may be influenced by the environment. This shows that Arthur Lyman has a great influence on the style of Martin Denny's works.
-
-\subsection{Similarities, differences and influences between genres}
-In order to explore the similarities, differences and influences between genres, we expressed the characteristic quantity of each genre in terms of the average characteristic quantity of all works in that genre based on the data in the full\_music\_data and influence\_data tables. And we visualize it as shown in the figure below:
-
+\subsection{Building a predictive model} 
+As above, we still visualize the relationship between time and word features and the two dependent variables. Here the data is pre-processed, i.e. z-score normalized and projected to between 0 and 1. As in Figure 11.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.8\textwidth]{t34.png} 	% 图片相对位置
-	\caption{Comparison of the styles of each genre}		% 图片标题 
-	\label{fig:ex4-9}
+	\includegraphics[width=.6\textwidth]{rbfms.png}
+	\label{img30}
+	\caption{scatter map (normalized)}
 \end{figure}
-
-\subsection{Changes in genre over time}
-In order to explore the changes that occur in a genre over time, we analyze the classical genre as an example.
-
-We counted the mean values of each attribute at each interval from 1930-2010, after which we calculated its standard deviation, where the four attributes of valence, instrumentalness, popularity, and key fluctuate significantly, and we made a graph of them as follows:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{t36.png} 	% 图片相对位置
-	\caption{Changes in classical genres over time}		% 图片标题 
-	\label{fig:ex4-9}
-\end{figure}
-We can see a general upward trend in the popularity of classical music, with the 1940s being the turning point for key, compared to the 1930s, when the tone of classical music slowed down from the 1940s and was inherited all the way through. at the same time, valence increased sharply in the 1940s, which we presume was influenced by the Second World War. 
-
-The 1950s were the turning point for instrumentalness turned a corner, with a sharp decrease in instrumentalness values, accompanied by a further increase in valence values to a peak, indicating the inclusion of more vocals in the music and a high level of emotion. In the 60s, the values of valence decreased sharply, accompanied by an increase in instrumentalness, indicating that the effect of certain events that occurred in the 50s In the 1970s, the popularity of classical music declined for the first time, while other characteristics changed little, probably due to the influence of the explosion of other musical styles. 
-
-\subsection{The connection between genres}
-In order to explore the degree of association between genres, we first analyze them from the perspective of the originator. We define the originator of a genre as the artist who first developed the style and influenced the largest number of people within the genre.
-
-We counted the originators of all genres and the relationships of influence between them, as shown in the following figure:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{t37.png} 	% 图片相对位置
-	\caption{The relationship of influence between the originators of each school}		% 图片标题 
-	\label{fig:ex4-9}
-\end{figure}
-
-In the figure, we find 15 genres whose originators were formed in the 1830s, and in the 1840s, the Reggae and Easy Listening genres emerged, where Henry Mancini, the originator of Easy Listening, was influenced by Haroid Arlen, the originator of Stage\&Screen. Arlen's influence led to the creation of Easy Listening.
-
-In the same way that the Avant-Garde genre was influenced by the Classical genre in the mid-1850s, the Children's genre was influenced by the Jazz genre and the Comedy Spoken genre together. By the 1860s, the Electronic genre emerged from the combined influence of the Jazz and Classical genres and the Pop/Rock genre, and the New Age genre was born from the combined influence of the Classical and Pop/Rock genres.
-
-Based on the data of works in each genre, we can dig out the salient features of each genre, as shown in the following table:
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|c|c|c|}
-		\hline
-		Genre           & \multicolumn{2}{c|}{Characteristic} \\ \hline
-		Pop/Rock        & energy           & valence          \\ \hline
-		Vocal           & danceability     & acousticness     \\ \hline
-		International   & valence          & acousticness     \\ \hline
-		R\&B            & valence          & key              \\ \hline
-		Jazz            & acousticness     & instrumentalness \\ \hline
-		Comedy/Spoken   & speechiness      & explicit         \\ \hline
-		Latin           & energy           & valence          \\ \hline
-		Country         & valence          & mode             \\ \hline
-		Blues           & energy           & valence          \\ \hline
-		Children's      & danceability     & instrumentalness \\ \hline
-		Electronic      & instrumentalness & duration         \\ \hline
-		Classical       & instrumentalness & explicit         \\ \hline
-		Stage \& Screen & acousticness     & instrumentalness \\ \hline
-		Folk            & key              & acousticness     \\ \hline
-		Avant-Garde     & loudness         & instrumentalness \\ \hline
-		Religious       & energy           & tempo            \\ \hline
-		Reggae          & mode             & instrumentalness \\ \hline
-		New Age         & instrumentalness & duration         \\ \hline
-		Easy Listening  & loudness         & instrumentalness \\ \hline
-	\end{tabular}
-	\caption{Characteristics of each genre}
-\end{table}
-
-From the table we can get the same characteristics of these genres, such as Pop/Rock, International, R\&B, Latin, Country, and Blues all have significant values of valence, which means that their music is full of positive emotions.
-
-\section{Task4 :The relationship between influencers and followers}
-
-\subsection{The relationship between the works of influencers and followers}
-
-To explore whether followers' musical styles are influenced by influencers, we need to consider the following online scenario, where one artist follows multiple influencers at the same time. 
-
-Taking Al Di Meola in The 1970s as an example, according to The data of influence-data, he was influenced by six artists including Julian Bream, John McLaughlin, Jim Hall, Jimi Hendrix, Miles Davis, and The Beatles. The network structure is shown as follows:
-
-\begin{figure}[H]
+As the figure shows, there is no particular reason driving us to choose the particular model. Therefore we still use linear regression to do the prediction work. However, at this point there is still some correlation between these features, so we first processed the data with principal component analysis (PCA) to obtain 5 principal components. Since there are not many features, all principal components can be retained for the next step. After PCA, the correlation between principal components was minimal.
+The data set was still partitioned as in the previous section, and a linear regression model was fitted and trained for both variables using the linear regression model. The generalization errors on the test set were measured as in Table 9.
+\begin{table}[!ht]
     \centering
-    \includegraphics[width=.4\textwidth]{AL Di.png}
-    \caption{Network structure of Al Di Meola}
-    \label{img}
-\end{figure}
-
-We use the statistical data in data\_artists table to formulate corresponding eigenvalue phasor for each of their works, and then calculate the similarity between artists as followers and influencers.
-
-Meanwhile, according to the influence model in Task1, we calculate the influence of six influenders, among which John McLaughlin, Jim Hall, Miles Davis and followers Al Di Meola belong to the same Jazz genre, while the others belong to different genres.
-
-The results are as follows:
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{lcc}
+    \begin{tabular}{|l|l|l|}
     \hline
-    \hline
-                                          & \textbf{influence} & \textbf{simarity}           \\ \hline
-    \textbf{The Beatles}                  & 0.7864             & 0.8429                      \\
-    \textbf{John McLaughlin}              & 0.6794             & 0.7627                      \\
-    \textbf{Miles Davis}                  & 0.4376            & -0.3557 \\
-    \textbf{Jimi Hendrix}                 & 0.3467            & 0.2738                      \\
-    \textbf{Jim Hall}                     & 0.2467             & -0.1849 \\
-    \textbf{Julian Bream}                 & 0.1349            & 0.0705                      \\ \hline
-    \hline
+        \textbf{} & \textbf{Mean} & \textbf{Standard deviation} \\ \hline
+        \textbf{MSE} & 0.434763 & 0.008357 \\ \hline
+        \textbf{MAE} & 0.453589 & 0.072288 \\ \hline
+
     \end{tabular}
-    \caption{the table of influence and simarity}
+	\caption{MSE \& MAE}
 \end{table}
-It can be found from the table that Miles Davis and Jim Hall had a negative influence on Al Di Meola, indicating that Al Di Meola innovated the style of Miles Davis and Jim Hall's works, while he basically inherited the style of others' works. 
-
-If we only consider the numerical size, we find that the influence of the influencer is related to the similarity between the influencer and the follower's works, that is, the more influential the person is, the more likely the follower will imitate him. But at the same time, some artists will be influenced by some influential artists and make some big changes to the style of the influencer to form their own style.
-
-\subsection{Influence factor}
-
-In order to further explore which features of influentials' works influenced their followers, we selected two of them, The Beatles and John McLaughlin, who had The greatest influence on The style of Al Di Meola's works, and analyzed The detailed data of all aspects of their works, as shown in The figure below
-
+The fitting effect is shown in Figure 12.
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=.8\textwidth]{factors.png}
-    \caption{eigenvalue comparison}
-    \label{img}
-\end{figure}
-
-We can see from The table, The AI DI Meola in tempo, mode, key, instrumentalness, mainly inherited The style of The John Mclaughlin duration, in danceability acousticness aspects mainly inherited The style of The Beatles.
-
-So we can conclude that influencers are contagious in certain ways.
-
-\section{Task5: Features and Leaders for change}
-\subsection{Features that produce change}
-In order to identify revolutionary features in the evolution of music, we can take a decade as a time unit and plot the change curve of each feature of the genre over time, and if there is a large fluctuation, the feature belongs to a major leap.
-
-We counted folk genre from the 1950 s to 2010 s work characteristics change, we calculate the variance of each characteristic value, after selecting the obvious fluctuations in the eigenvalue instrumentalness, speechiness and popularity made their variation, the result is shown in the following figure:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\textwidth]{t61.png}
-    \caption{Some change in eigenvalues}
-    \label{img}
-\end{figure}
-
-From the graph we can see that in the 20 years from 1950 to 1970, there was a sharp decline in speechiness, accompanied by a sharp rise in instrumentalness, which, combined with a dramatic increase in popularity, leads us to speculate that perhaps folk emerged as the star artists who drove the genre forward.
-
-\subsection{Explore leaders for change} 
-
-To explore who caused this change, we extracted the characteristics of all artisits within the genre in that time period, and used the cosine similarity in task2 to calculate the degree of similarity between the characteristics of their artisits' works and the characteristics of the genre between this point in time. If the degree of similarity is greater and the artist has some influence, then he is the change agent of the genre.
-
-We have listed some of the most influential artists in the 1950s and Folk genre. The results are shown below:
-
-\begin{table}[H]
-    \centering 
-    \begin{tabular}{ccc}
-    \hline
-    \hline
-    \multicolumn{1}{c|}{Name}                       & \multicolumn{1}{l}{simarity} & influence \\ \hline
-    \multicolumn{1}{c|}{The Kingston Trio}     & 0.948                        & 8.96      \\
-    \multicolumn{1}{c|}{Ramblin' Jack Elliott} & 0.903                        & 10.2      \\
-    \multicolumn{1}{c|}{John Fahey}            & 0.877                        & 9.31      \\
-    \multicolumn{1}{c|}{Joan Baez}             & 0.702                        & 15.5      \\
-    \multicolumn{1}{c|}{Dave Van Ronk}         & 0.852                        & 9.74      \\ \hline
-    \hline
-    \end{tabular}
-	\caption{Similarity and influence of some Folk genre artists}
-\end{table}
-
-From the table, we can find that Joan Baez is the artist who has the most influence and whose style is most inconsistent with the previous style of the genre. Therefore, we can infer that Joan Baez is a reformer of this era.
-
-We select the average data of his works in this period and the average data of all Folk works in this period to calculate the distance between them, and measure his contribution to the style of the genre. The farther away from the average, the greater the contribution is. The result is shown in the figure below:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\textwidth]{t62.png}
-    \caption{Joan Baez}
-    \label{img}
-\end{figure}
-
-From the graph, we can find that the contribution of Joan Baez's instrumentalness feature far exceeds the other features, so we can be sure that Joan Baez is the driving force that caused the stylistic change in the Folk genre.
-
-
-The history of the development of the Folk genre\upcite{2}.
- shows that in the 1960s, Joan Baez combined the Folk genre with the Rock genre, introducing rock instruments such as the guitar to the Folk genre, thus driving a significant increase in the Folk genre's instrumentalness characteristics, further supporting our speculation.
-
-We used the same method to filter out other genre changers and the results are shown in the following table:
-
-\begin{table}[H]
 	\centering
-	\begin{tabular}{|l|l|l|l|l|}
-		\hline
-		Genre & Avant-Garde          & Blues           & Children's      & Classical      \\ \hline
-		Name  & Terry Riley          & Muddy Waters    & Alvin           & John Cage      \\ \hline
-		Genre & Latin                & New Age         & Pop/Rock        & R\&B;          \\ \hline
-		Name  & Antnio Carlos Jobim  & Mike Oldfield   & The Beatles     & Marvin Gaye    \\ \hline
-		Genre & Comedy/Spoken        & Country         & Easy Listening  & Electronic     \\ \hline
-		Name  & Spike Jones          & Johnny Cash     & Henry Mancini   & Kraftwerk      \\ \hline
-		Genre & Reggae               & Religious       & Stage \& Screen & Vocal          \\ \hline
-		Name  & Toots \& the Maytals & James Cleveland & Ennio Morricone & Billie Holiday \\ \hline
-		Genre & International        & Easy Listening  & Jazz            &                \\ \hline
-		Name  & Ravi Shankar         & loudness        & Miles Davis     &                \\ \hline
-	\end{tabular}
-	\caption{Change makers in every genre}
-	\label{tab:my-table}
-\end{table}
+	\includegraphics[width=.6\textwidth]{pms.png}
+	\label{img31}
+	\caption{fit result}
+\end{figure}
 
-\section{Task6: Genre evolution}
-\subsection{Dynamic index of genre evolution}
-According to the community model of Task1, we can regard a genre in the influence network as a community. When a genre changes greatly, the variance of the similarity of songs belonging to this genre in this period will expand. When the songs of this genre tend to be unified, their variance will decrease. We define the dynamic variance is "$\varphi $".
+\subsection{Model solving}
+	After testing this discrete normal distribution model, we verified its validity. We can make predictions about the percentage of player attempts for a word at a future date. For example, the prediction is made for the case of March 1, 2023, when the word is eerie. We first use the mean and standard deviation of the number of player attempts calculated by Task3 to input into this model, and the final result is calculated as follows.
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{eerie.png}
+	\caption{the distribution of player tries of word "eerie"}
+	\label{img10}
+\end{figure}
 
-And then, we ues 10 years as a period to get a change chart of $\varphi (t)$:
+\subsection{Model analysis}
+\textbf{Disadvantages Analysis}:The model we built has certain uncertainties, which are mainly reflected in the following aspects. One, we use time as well as four indicators of words as factors affecting the number of player attempts, and these indicators may not be comprehensive, leading to an inaccurate model. Second, the word frequency indicators of words are sourced from major corpora, which are mostly old, and words from recent times may not be counted, resulting in the indicator not being time-sensitive.
+
+\textbf{Merit analysis}:
+We chose the indicator of the number of repeated letters in words, and this indicator has a large impact on the final results. This indicator has some practical significance. In the Wordle game, if there is a word in the wrong place, we do not know how many letters are present in the answer. If there are more than one letter, this makes the game much more difficult and leads to a corresponding increase in the number of attempts. Therefore, we have a high degree of confidence in our model.
+
+\section{Task 4: Classifying word difficulty}
+\subsection{Hierarchical clustering-based word difficulty classification model}
+\subsubsection{Indicator selection}
+To analyze their word properties, we screened four indicators of word frequency, MNRL, root, and wordiness as the basic features to classify the difficulty of words, and referred to the commonly used Gutenberg corpus, Brown corpus, Reuters corpus, WordNet corpus, and treebank corpus to count the word frequency, MNRL, root, and wordiness of each historical answer word in wordle The word frequency, MNRL, root word, and lexical property of each historical answer word in wordle were calculated. The following is a specific analysis of these four word attributes.
+
+\begin{enumerate}
+	\item Word frequency: how often a word is used in people's social life. This indicator reflects how common the word is. In general, if a word has a smaller word frequency, it can be considered as more difficult.
+	\item MNRL: The number of repeated letters in a word. Generally, if there are more than one letter in a word, it will make the word difficult to be guessed.
+	\item Root: The presence or absence of a root word in a word. In terms of historical experience, words with roots are generally more common in ordinary life and can be assumed to be less difficult to guess.
+	\item Word nature: The nature of a word such as a noun, verb, etc. The lexical nature of different words can reflect the different difficulty of the word. Generally, verbs and prepositions are more common in life, and words with these lexical natures can be considered less difficult.
+\end{enumerate}
+
+In summary, the above 4 attributes can basically reflect the difficulty level of words, and can be used as part of the criteria for classifying the difficulty of words.
+
+\subsubsection{Data pre-processing}
+
+By analyzing the dataset of the four indicators of each historical answer word, the ranges of each indicator are very different and do not belong to the same scale, and the range of word frequency indicators fluctuates greatly, which may have some influence on the final result of dividing the difficulty, so we decided to standardize the dataset.
+
+Here, the maximum-minimum normalization is adopted to pre-process the data set, and the interval is scaled to the range of 0 to 1, which is convenient for the later hierarchical clustering to divide the word difficulty problem.
+
+\subsubsection{Model building}
+
+To classify the word difficulty based on the index dataset of words, here we establish a word difficulty classification model based on hierarchical clustering and finally get the criteria for determining the classification of word difficulty.
+
+Considering that hierarchical clustering does not require a pre-determined number of clusters for clustering, and is suitable for data sets with a small amount of data, and can handle noise and outliers, in line with our data set, the cohesive hierarchical clustering model using hierarchical clustering is used, and the clustering is performed from the bottom up, gradually merging into larger and larger clusters, and similar data points are merged until certain stopping conditions are met.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{change.png}
-	\caption{Variance of similarity over time}
-	\label{img}
+	\includegraphics[width=.6\textwidth]{pic1.png}
+	\caption{hierarchical clustering diagram}
+	\label{img13}
 \end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=.7\textwidth]{pic1.png}
+%    \caption{Some change in eigenvalues}
+%    \label{img}
+%\end{figure}
 
-We can intuitively see that the vocal school was in the era of change in 1930s and 1970s. At other times, the style area is stable.
+In the hierarchical clustering process, cosine similarity was used as the distance measure to maximize the farthest distance between clusters as the connection method of clustering. The metrics in the dataset were hierarchically clustered, and the analysis showed that the contour coefficient was highest when k=2, i.e., when clustered into 2 classes, and this clustering was considered the best, and clustering into 2 classes was more consistent with the classification of word difficulty.
+The contour coefficient is calculated as follows.
+For the ith sample, let a(i) be its average distance from other samples in the same cluster, and b(i) be its average distance from all samples in the nearest other clusters (i.e., the average distance between clusters), then the contour coefficient of this sample is：
 
-But at the same time, the vitality of a school is also an important indicator to measure the change of a school. For a community in a network, we introduce the view of dynamic network to record the snapshot of network structure in each period. We use the size of the node to represent the degree of activity within the network, and use the links with other schools to represent the degree of communication activity with other schools. Finally, we use the sum $\psi $ of the size and degree of the node and  the node to represent the prosperity and decline of a community.
 \begin{equation}
-\psi (t)=size(t)+indegree(t)+outdegree(t)
+	s(i)=(b(i)-a(i)) / \max \{a(i), b(i)\}
 \end{equation}
-\begin{figure}[htbp]
+
+The contour coefficient of the whole data set is the average of the contour coefficients of all samples. A larger value of the contour coefficient represents a better result of clustering.
+The following is a comparison of the contour coefficients for different k values.
+
+\begin{table}[hbp]
 	\centering
-	\begin{minipage}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=8cm]{shijian.png}
-		\caption{vocal-organization}
-	\end{minipage}
-	\begin{minipage}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=7cm]{f of vocal.png}
-		\caption{$\psi(t)$ of every year}
-	\end{minipage}
-\end{figure}
-
-
-Obviously, we can see that after experiencing the glory of the 1930s, vocal gradually declined. In the 1970s and 1990s, vocal actively absorbed some characteristics of other schools, such as jazz and Pop. However, it can not avoid the gradual decline of this community.
-
-\subsection{Analysis of specific factors}
-
-Then, in order to explore the specific changes of the style of vocal school over time, we make statistics of the main changes in the data of vocal.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\textwidth]{vocal.png}
-    \caption{The main factors of style change}
-    \label{img}
-\end{figure}
-
-In Task3, we summarized the main characteristics of each genre, where the Jazz genre is mainly characterized by the use of instruments, the Pop/Rock genre is mainly characterized by high energy attribute value, and the R\&B genre is mainly characterized by high valence attribute, which is more aggressive.
-
-In the 1970s and 1980s, the Vocal genre was briefly influenced by the R\&B genre, but its valence values did not fluctuate significantly, so we can assume that the R\&B genre did not have much influence on the Vocal genre in terms of valence.
-
-The influence of the Pop/Rock genre on the Vocal genre is obvious, as the Pop/Rock genre began to influence the Vocal genre from the 1950s onwards, and the value of the energy attribute of Vocal increased rapidly. By the 1980s, the Pop/Rock genre no longer influenced the Vocal genre, and Vocal's energy attribute values fell. In the 1990s, the Pop/Rock genre once again entered the ranks of influencers, and Vocal's energy attribute values began to climb again. Therefore, we can speculate that the characteristics of Vocal's energy were mainly influenced by the Pop/Rock genre.
-
-\subsection{An analysis of the influence of artists}
-
-In order to explore how artists are influenced with the passage of time, we select Frank Sinatra, the main character of vocal school, for specific analysis.
-
-As a veteran artist who became famous in the 1920s, Frank Sinatra did not have many influences during his career. According to statistics, he was only influenced by the Vocal genre five times in the 1930s, the Jazz genre twice, and the Vocal genre once in the 1940s.
-
-Based on the data of his career releases, the characteristics of his works were counted every ten years, and the fluctuating attributes of instrumentalness, liveness, and acousticness were plotted over time, as shown in the following graph:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.6\textwidth]{Frank.png}
-    \caption{The main changes of Frank}
-    \label{img}
-\end{figure}
-
-It is clear from the graph that Frank Sinatra's instrumental use improves significantly in the 1930s as he is influenced by two composers of the Jazz genre. He was then influenced by the Vocal genre in the 1940s, and the value of the instrumentalness attribute then slipped. The year-to-year decline in the liveness attribute is most likely due to the popularity of electronic playback technology, to the extent that his performances were more often transmitted via television. The spike in his instrumentalness attribute in the 1990s was likely influenced by the explosion of electronic music at the time.
-
-\section{Task7: Other factors}
-We make a curve of eigenvalues over time based on the data\_by\_year data and selected a few eigenvalues with large variance:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{t71.png}
-	\caption{The main changes of Frank}
-	\label{img}
-\end{figure}
-We can explore the impact of fluctuations in the curve in the following ways:
-
-\begin{itemize}
-	\item \textbf{Impact of the World War II}
-\end{itemize}
-
-	In the 1940s, World War II broke out, and because the war had a melancholy color, the works created in the 1940s were also more negative (less valence) and less suitable for dance, resulting in less danceability. At the same time, Europe was caught in the middle of the war, and a large number of European artists immigrated to the United States for refuge. After World War II, the music artists who immigrated from Europe and the native American music artists influenced each other, which made the music develop well. Coupled with the relatively peaceful international environment after World War II, people had more energy and leisure time to enjoy music, and the popularity of music had a great development after World War II\upcite{3}
-	.
 	
-\begin{itemize}
-	\item \textbf{The impact of information technology}
-\end{itemize}
+	\label{tab:pagenum}
+	\begin{tabular}{lllll}
+		\toprule
+		k& 2 & 3 & 4 \\
+		\midrule
+		Contour factor  & 0.9688079418026865 & 0.9584611141643063 & 0.9490023468641484\\
+		
+		\bottomrule
+	\end{tabular}
+	\caption{comparison of the contour coefficients for different k values}
+\end{table}
 
-	The emergence of the Internet in the 1970s and its subsequent development diversified the vehicles and media for disseminating musical works and made it cheaper and more convenient, and the popularity of music continued to increase. At the same time, however, offline musiac was more costly and therefore accounted for less than the ease and affordability of distributing music online, thus reducing the liveness characteristics of music.
+\subsubsection{Model solving and result display}
 
-\begin{itemize}
-	\item \textbf{The impact of politics}
-\end{itemize}
+1.Hierarchical clustering to classify word difficulty results
 
-	During the anti-war and civil rights movements in the United States in the 1960s, rock and roll made a huge impact on mainstream culture as a powerful weapon for youth subculture groups. During these movements, rock music was loved by many people. The danceability of the music increased due to the passionate rhythm of rock and roll, which made people dance to the music involuntarily\upcite{4}
+When the clustering with a k value of 2 was initially determined to be good, we selected 2 classes for specific clustering exploration, indicated different labels for all words, and initially delineated the word difficulty as 2 difficulties. In order to delineate the specific difficulty determination criteria, the word data with different labels indicated earlier are grouped according to different two classes of labels, and the mean value of each word attribute after the grouping is sought, and the obtained mean value is taken as its clustering center of mass, and its center of mass features are analyzed, and the word difficulty can be divided into easy-to-guess word class and hard-to-guess word class.
 
-\begin{itemize}
-	\item \textbf{The impact of the economy}
-\end{itemize}
+The easy-to-guess word class is for words with larger MNRL values and more word frequency, and the hard-to-guess word class is for words with smaller MNRL values and less word frequency. The following is the data of the center of mass after clustering.
 
-	In the 1930s, the economic crisis broke out across the United States, and the unemployment rate rose sharply in the face of closures and bankruptcies brought about by the Great Depression. The record industry at the time was hit hard. The music industry was hit hard and the popularity of music declined from the 1930s to the 1940s\upcite{5}
+\begin{table}[hbp]
+	\centering
 	
-\section{Analysis on Model's Sensitivity}
-In Task 1, we introduce the attenuation coefficient $\mathcal{P}$ and assign it a value of 0.5 in order to measure the effect of indirect influence in the influence network, and now we do a sensitivity test on the attenuation coefficient $\mathcal{P}$.
+	\label{tab:pagenum}
+	\begin{tabular}{lllll}
+		\toprule
+		& MNRL & word frequency & Morpheme & root of word \\
+		\midrule
+		Classification 1  & 1.80315 & 628.669291 & 1.346457 & 0.503937\\
+		\midrule
+		Classification 2  & 1.00000 & 135.671053 & 0.000000 & 0.508772\\	
+		\bottomrule
+	\end{tabular}
+	\caption{comparison of the contour coefficients for different k values}
+\end{table}
+
+2.Visualization of clustering results
+
+In order to present the results better and observe whether the results are obvious after clustering, a three-dimensional visualization is drawn here, where the three coordinates correspond to the three word attributes of word frequency, MNRL, and lexicality, respectively. The blue dots indicate one category after clustering, and the red dots indicate the other category. 	It can be seen that there are obvious boundaries between the two colors of points, and the blue points are mostly clustered in one category and the red points are clustered in one category, which can indicate good clustering effect.
+
+The specific three-dimensional image after clustering is shown as follows.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.6\textwidth]{lingmin.png}
-	\caption{The main changes of Frank}
-	\label{img}
+	\includegraphics[width=.6\textwidth]{pic2.png}
+	\caption{distributions of features}
+	\label{img14}
 \end{figure}
-From the figure we can find that there is no large change in the influence when $\mathcal{P}$ is taken at [0.1,0,8]. Therefore, our model is insensitive to $\mathcal{P}$ in most cases.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{pic3.png}
+	\caption{distributions of each 2 features}
+	\label{img15}
+\end{figure}
+The two-dimensional diagrams of the respective two classes after clustering are as follows.
 
-\section{Strengths and Weaknesses}
-\begin{itemize}
-\item Strengths:
-\end{itemize}
+After clustering, the different two categories of difficulty categories are aggregated and the numerical categories of the three attributes of the words are as follows.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{pic4.png}
+	\caption{classifications of 3 features 1}
+	\label{img16}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{pic5.png}
+	\caption{classifications of 3 features 2}
+	\label{img17}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{pic6.png}
+	\caption{classifications of 3 features 3}
+	\label{img18}
+\end{figure}
+3.Finding the contribution of each word index to the clustering results based on the WSS formula
 
-1.It is innovative to construct influence models through networks.
+After getting the results after clustering, for each indicator, calculate the sum of variance in different levels of clustering, that is, calculate the sum of variance of the indicator in different clusters after clustering, and then divide it by the total variance to get the contribution degree of the indicator.
 
-2.The selection of the network parameters of the influence network is scientific and reasonable.
+\begin{equation}
+WSS=\Sigma\|x i-c\|^{\wedge} 2(i=1,2, \ldots, n)
+\end{equation}
 
-\begin{itemize}
-\item Weaknessess:
-\end{itemize}
+Finally, the contribution of each respective metric in the total metric is shown in a fan chart based on the contribution of the obtained metrics, with MNRL and word frequency contributing the most to the clustering results, visualized as follows.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{pic7.png}
+	\caption{number of reports with times}
+	\label{img19}
+\end{figure}
 
-1.Because of the large amount of data, our model cannot analyze each genre thoroughly.
+\subsection{Support vector machine based specific word difficulty classification model} 
 
-2.The indicators of the popularization model cannot be quantified, resulting in a low persuasibility of the model.
+\subsubsection{Delineating the training test set and data preprocessing}
 
-3.As time changes, artists in one genre may create music in other genre styles, and we cannot consider this situation.
+In order to classify the new answer words into one of the two classes obtained from the previous as well as the clustering, a suitable classification model learner must be selected to fit the training to each word attribute and classification label.
+First, a simple cross-validation of the dataset should be performed first by selecting a training set and a test set according to a given ratio, with the number of training and test sets being 8:2.
 
-4.We did not consider the impact that a collaboration between artists would have on the work.
-\newpage
+In terms of data preprocessing, maximum-minimum normalization is used, and the specific steps are described in the above model as well as, so we will not go into too much detail here.
+
+\subsubsection{Model Building}
+
+Among many classification learning models, here we choose support vector machine classifier, which is a powerful classifier for linear and nonlinear classification problems and can handle high-dimensional data and data sets with small sample size, which is more suitable for the characteristics of our data set, 4-dimensional data and small data sample size. In addition, it can also handle classification problems well and can prevent overfitting by regularization terms.
+
+\subsubsection{Model Solving and Results Presentation}
+
+1.Support vector machine classification of specific word difficulty
+
+The support vector machine was selected to classify the specific word difficulty, and the following specific tuning parameters were used to violently search the parameters using the grid search method to determine the specific suitable parameters to make the best accuracy of the classification prediction results.
+Through the grid search method, the penalty parameter is determined to be 3. When the penalty parameter is larger, it can make the classifier more mainly classify correctly, and the number of control polynomial kernel functions is 3. The polynomial kernel function type is polynomial kernel function, which can map the feature space into a high-dimensional polynomial space and can handle some nonlinear classification. After tuning the parameters, the accuracy of the initially obtained classification model is close to 1. The test set and the prediction set can 	Basically match, which indicates that the classification effect is good.
+For the new word EERIE classified with the trained classification model, the classification result obtained is 1, i.e., it can be classified as a class of hard-to-guess words.
+
+2.Determining the accuracy of the classification model
+
+In order to determine the specific accuracy of the classification model, four metrics are used here to determine the accuracy of the classification model, namely precision, recall, F1 value and support.
+
+\begin{enumerate}
+	\item Precision: the percentage of samples with positive predictions that are actually positive cases.
+	\item Recall: The percentage of samples with positive cases that are predicted to be positive cases.
+	\item F1 value: The summed average of precision and recall.
+	\item Support: the number of samples per category in the true label.
+	The specific accuracies are listed in the following table:
+\end{enumerate}
+
+\begin{table}[hbp]
+	\centering
+	
+	\label{tab:pagenum}
+	\begin{tabular}{lllll}
+		\toprule
+		& precision &  recall & f1-score & support \\
+		\midrule
+		Classification 1  & 1.00 & 1.00 & 1.00 & 22\\
+		\midrule
+		Classification 2  & 1.00 & 1.00 & 1.00 & 49\\	
+		\bottomrule
+	\end{tabular}
+	\caption{comparison of the contour coefficients for different k values}
+\end{table}
+
+
+\section{Task 5: Interesting Characteristics of The Dataset}
+We also conducted data exploration of the dataset and found some interesting characteristics.
+
+First, we found that the number of reports of playing difficult mode as a percentage of reports slowly decreases as the total number of reports increases, and the trend is clear (as shown in the figure 11). Because a game has a relatively limited long-term audience, it does not simply increase with the number of players.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{rhr.png}
+	\caption{}
+	\label{img11}
+\end{figure}
+
+Second, we calculated the mean and variance of the player scores, and found that both obeyed a normal distribution according to their qq plots. Both are shown in Figure 22.
+\begin{figure}[H]
+	\centering    
+	\subfigure[Mean]{				% 图片1([]内为子图标题)
+		\label{fig:sub.roomhot1}							% 子图1的标签
+		\includegraphics[width=0.3\textwidth]{qqm.png}}% 子图1的相对位置
+	\subfigure[Standard Deviation]{				% 图片2
+		\label{fig:sub.floorhot1}						% 子图2的标签
+		\includegraphics[width=0.3\textwidth]{qqstd.png}}% 子图2的相对位置
+	\caption{the QQ plots of mean and standard deviation}		% 总图标题
+	\label{}									% 总图标签
+\end{figure}
+% ............................End Line.....................................
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=.6\textwidth]{.png}
+% 	\caption{}
+% 	\label{img}
+% \end{figure}
+
+
+
+	
+	\section{Analysis on Model's Sensitivity}
+
+	In TASK 5, a support vector machine classification model was used to classify the specified word difficulty based on 4 word attributes. To determine the effect of the 4 attributes on the final classification results, here we performed a sensitivity analysis.
+	
+	For each of the 4 word attributes in the dataset fluctuated from 0.1 to 0.5, respectively, and were again brought into the support vector machine classification model for classification prediction to test the accuracy between the test and prediction sets, where word frequency, MNRL, and word root fluctuations were found to fluctuate in the interval 0.1 to 0.3, and the accuracy was still high, and it can be assumed that the sensitivity of these attributes in the interval to the final classification results is small.
+	
+	When the fluctuation is between 0.1 and 0.4, the accuracy of the 4 attributes of the word brought back into the model is as follows:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.6\textwidth]{pic8.png}
+		\caption{Sensitivity analysis graph for each word attribute in different intervals}
+		\label{img}
+	\end{figure}
+
+
+
 
 % 以下为信件/备忘录部分，不需要可自行去掉
 % 如有需要可将整个 letter 环境移动到文章开头或中间
 % 请在后一个花括号内填写信件（Letter）或备忘录（Memorandum）标题
 %审视艺术家和流派的进化和革命趋势
-\begin{letter}{A document to the ICM Society}
+\begin{letter}{Our Letter}
 	\begin{flushleft}  % 左对齐环境，无首行缩进
-	To whom it may concern,
+	Dear Editor:
 	\end{flushleft}
 
-Music, as an essential component of cultural heritage, contains tremendous value.In order to measure musical influence and to explore the evolutionary and revolutionary trends in examining artists and genres, we build a network model.
+We would like to submit the enclosed manuscript entitled “Paper Title”, which we wish to be considered for publication in “New York Times”. No conflict of interest exits in the submission of this manuscript, and manuscript is approved by all authors for publication. I would like to declare on behalf of my co-authors that the work described was original research that has not been published previously, and not under consideration for publication elsewhere, in whole or in part. All the authors listed have approved the manuscript that is enclosed.
 
-Through our network model, we can identify the change-makers in the genre, such as the artist Joan Baez, who pushed the Folk genre to merge with the Jazz genre, and the artist The Beatles, who influenced not only the genre, but all other genres.
+In this problem, we used the corpus to collect the four indicators of word frequency, MNRL, lexicality, and root word to build features of words to facilitate subsequent model building.
 
-Unfortunately, however, due to the limited amount of data available, we only know the main genre of an artist and some of his works, while in reality, an artist does not belong to only one genre, but his works often dabble in multiple genres. And, in reality, there are fusions and divisions between genres. For example, the country genre can be subdivided into Bluegrass, Country Pop, Countrypolitan, etc. These factors also interfere with the accuracy of our model.
+For problem 1, the ADF test is satisfied by the difference method, and we use the ARIMA model to predict the number of people, and since the predicted value is an exact value, but to avoid absolutes, we use the confidence interval as the prediction interval. The predicted interval is [0,49485]. We targeted the correlation analysis of the four features of the words with the two indicators of the distribution of the number of response attempts using different methods of calculating the correlation coefficient. The results of the analysis found that the maximum number of repeated words significantly affects the percentage of player attempts in the difficult mode, and the larger the MNRL, the higher the percentage of players with multiple attempts and the lower the percentage with fewer attempts. The other three indicators do not correlate well with the percentage of attempts.
 
-In addition, due to the lack of data, our model is unable to quantify the impact of environmental and major events on music. For example, we found that the Second World War around 1940s saw relatively large ups and downs in the characteristics of all music genres, but it is difficult to accurately reflect this factor in our model.
+For problem 2, we used the data from the dataset and built a linear regression model to predict the mean as well as the standard deviation of the number of player attempts from the four indicators of the word and the date. We used the mean of the number of attempts as $\mu$ and the standard deviation of the number of attempts as $\sigma$ to establish a normal distribution as a probability model for the percentage of player attempts. Since the number of attempts here is discrete and there are only seven, we calculate the percentage of specific attempts by integration. We predicted the mean value of the number of attempts for the word eerie on March 1, 2023 to be 4.82, with a standard deviation of 1.12. Therefore, a normal distribution was created and discretized to calculate the percentage result as ("1 try":0.0015, "2 tries":0.0176, "3 tries":0.1001, "4 tries":0.2683, "5 tries":0.3406, "6 tries":0.2051, "more than 7 tries":0.0584)
 
-With this data, we can revise our network model, add influence factors in the network, and thus more accurately analyze the development and change of music genres.
+For problem 3, we built a hierarchical clustering model based on four word features to file the difficulty of all words. The WSS formula was also used to measure the contribution of the 4 indicators of word attributes to the results, where the largest contribution was made by MNRL. Subsequently, a support vector machine model was built based on the specific data to analyze the word attributes of the word EERIE as difficulty.
 
-Other factors will have an impact on the music, and likewise, the music will have an impact on other factors. For example, the rise of rock music in the United States in the 1950s elevated white Americans' identification with blacks, eased the problem of racial tension in the United States, and made the country more culturally inclusive.%此处引用
+For problem 4, we deeply mined the dataset and found some interesting characteristics, such as the mean and variance of the number of player attempts satisfy normal distribution; the more the number of all players, the smaller the percentage of difficult mode players; the number of difficult mode players grows slowly over time, etc.
 
-Music as a part of culture, while having a profound impact on the rest of culture. Music can not only be enjoyed, but it can also permeate social life. And this is where the value of music lies.
+We deeply appreciate your consideration of our manuscript, and we look forward to receiving comments from the reviewers. 
+
+Thank you and best regards.
+%此处引用
+
 
 \hfill Yours Sincerely,
 
-\hfill Team $\#$2107542  
+\hfill Team $\#$2307519  
 \end{letter}
 
-\clearpage
+% \clearpage
 \begin{thebibliography}{99}
-	\bibitem{1} Jianshu Weng, Ee-Peng Lim, Jing Jiang. TwitterRank: Finding Topic-sensitive Ibfluential Twitterers
-	\bibitem{2} http://www.360doc.com/content/14/0505/10/15883912\_374732455.shtml.
-	\bibitem{3} Wang Lei. The Post-World War II American Art Patronage System and the Rise of American Contemporary Art [D]. China Academy of Art, 2015.
-	\bibitem{4}  Zhao Dongliang. The relationship between rock music and social movements in the United States in the 1960s[J]. Literary and Educational Materials,2018(6):94-95.
-	\bibitem{5}Ding Zhu. The history of popular music (serialized five) [J]. Music Life,2011(07):28-29.
-	\bibitem{6}YUNJING DAI. A Research of Quantification of Pairwise Influence in Online Social Network. 
-	\bibitem{7}Yu Xin. Tradition in innovation: a glimpse of western music in the twentieth century.2006sk079
-	\bibitem{8}Grout, A History of Western Music. People's Music Publishing House,1996, p. 720.
-	\bibitem{9} Shen Xuan. A Brief History of Western Music. Shanghai Music Publishing House,1999, p. 319.
-\end{thebibliography}
+	\bibitem{1} D. E. Rumelhart, G. E. Hinton, and R. J. Williams, “Learning representations by back-propagating errors,” Nature, vol. 323, no. 6088, pp. 533–536, 1986.
+	\bibitem{2} T. Cover  P. Hart, "Nearest neighbor pattern classification," Journal IEEE Transactions on Information Theory archive Volume 13 Issue 1, January 1967
+	\bibitem{3} 彭天奎. 正态分布偏化、离散化研究及其应用[D].重庆理工大学,2021.DOI:10.27753/d.cnki.gcqgx.2021.000013.
+	\bibitem{4} 李振亮,乐昕雨.基于ARIMA模型的北京市GDP分析与预测[J].中小企业管理与科技,2023,No.694(01):153-155.
+	\bibitem{5} Ying Wang, Weiwei Cheng, Chang Liu. Research on deduplication method of multiple relations based on hierarchical clustering algorithm[J]. International Journal of Information and Communication Technology,2023,22(2).
+	\end{thebibliography}
 
+\begin{appendices}
+	Source Code : 
+\end{appendices}
 \end{document}  % 结束$
 %http://www.360doc.com/content/14/0505/10/15883912_374732455.shtml
 %Task5里的参考文献
