@@ -5,7 +5,7 @@
 % \bibliographystyle{plain}
 % 本模板不需要填写年份，以当前电脑时间自动生成
 % 请在以下的方括号中填写队伍控制号
-\usepackage[2107542]{easymcm}  % 载入 EasyMCM 模板文件
+\usepackage[2307519]{easymcm}  % 载入 EasyMCM 模板文件
 \problem{C}  % 请在此处填写题号
 % \usepackage{mathptmx}  % 这是 Times 字体，中规中矩 
 \usepackage{palatino}  % mathpazo 这palatino是 COMAP 官方杂志采用的更好看的 Palatino 字体，可替代以上的 mathptmx 宏包
@@ -41,11 +41,11 @@
 
 In this paper, we first present a method for predicting the number of participants based on the ARIMA model. We demonstrate a process that includes data pre-processing, smoothness testing, parameter selection, and error analysis, and apply the ARIMA model to the problem of predicting the number of reports on a future day based on previous data. A series of validations proved the excellent generalization ability of the model and the accuracy of the prediction described by MSE.
 
-Then, we collected information on the daily usage frequency of words, word roots, and word properties as word features, completed the modeling of wordle words, and used the mean and standard deviation of the distribution of the number of player attempts as a measure of game difficulty. Four metrics describing the impact of words in the game (frequency of daily use, maximum number of repeated letters (MNRL), wordness, and number of word roots) were finally obtained. After ANOVA and calculation of Spearman's correlation coefficient, we found that MNRL significantly affects the percentage of player attempts in the difficult mode, and the larger the MNRL, the higher the percentage of players with multiple attempts and the lower the percentage of players with fewer attempts. The other three indicators do not correlate well with the percentage of attempts.
+Then, we collected information on the daily usage frequency of words, word roots, and word morpheme as word features, completed the modeling of wordle words, and used the mean and standard deviation of the distribution of the number of player attempts as a measure of game difficulty. Four metrics describing the impact of words in the game (frequency of daily use, maximum number of repeated letters (MNRL), wordness, and number of word roots) were finally obtained. After ANOVA and calculation of Spearman's correlation coefficient, we found that MNRL significantly affects the percentage of player attempts in the difficult mode, and the larger the MNRL, the higher the percentage of players with multiple attempts and the lower the percentage of players with fewer attempts. The other three indicators do not correlate well with the percentage of attempts.
 
 Next, we fitted the relationship between word and date and the number of player attempts using linear regression, and creatively regressed the percentage of players in seven categories using the parameters of the predicted probability distribution model instead. The problem that the results of linear regression are difficult to be constrained is solved by first predicting the probability distribution function and then calculating the percentage of 7 types of players by the probability distribution function. After analysis, we find that the discrete Gaussian distribution fits the proportion of players in 7 categories better, and the model built by this can achieve a small generalization error.
 
-Then, based on the previous modeling of words and the quantification of difficulty, we also used the hierarchical clustering method to finish the grading of word difficulty, and finally chose the rule of two grades of hard and easy to be more reasonable. After that, we used the WSS formula to measure the impact of each word feature on difficulty MNRL>frequency of use>word nature>number of root words. Finally, an SVM-based word classifier was built to classify unfamiliar words in two grades of difficulty and ease.
+Then, based on the previous modeling of words and the quantification of difficulty, we also used the hierarchical clustering method to finish the grading of word difficulty, and finally chose the rule of two grades of hard and easy to be more reasonable. After that, we used the WSS formula to measure the impact of each word feature on difficulty MNRL>frequency of use>word morpheme>number of root words. Finally, an SVM-based word classifier was built to classify unfamiliar words in two grades of difficulty and ease.
 
 In addition, we did many tests to ensure the generalization ability of the above model. And data exploration was done on the dataset to find some interesting properties about player features and player distribution. For example, we found that players in hard mode are harder to lose but also harder to grow; the mean and variance of player attempts also follow normal distribution well, etc.
 
@@ -68,30 +68,22 @@ In addition, we did many tests to ensure the generalization ability of the above
 \section{Introduction}
 
 \subsection{Problem Background}
-Music has been part of human societies since the beginning of time as an essential component of cultural heritage. There are many factors that can influence an artist's music making, especially between artists. The Integrative Collective Music (ICM) Society has asked our team to develop a model that measures musical influence, examining evolutionary and revolutionary trends of artists and genres.
-The team are provided with the following tasks:
-
+Wordle is a popular trivia game offered by the New York Times, and every day many players report on Twitter the number of attempts they have made to win the game. There are many factors that affect the overall number of attempts by wordle players, especially the characteristics of the game answers themselves. The New York Times asked us to do some analysis on such issues. Here is our task.
 \begin{itemize}
-	\setlength{\parsep}{0ex} %段落间距
-	\setlength{\topsep}{2ex} %列表到上下文的垂直距离
-	\setlength{\itemsep}{1ex} %条目间距
-	\item We use the ARIMA model to predict the number of participants in the report at a future date, giving a prediction interval. A series of tests were conducted to ensure the generalization ability.
-	\item We precisely collected and quantified the word frequency, MNRL (Maximum Number of Repeated Letters), root words, and word properties of the words in the dataset to model the wordle words.  
-	\item We used the mean and standard deviation of the number of player attempts as the word difficulty. We divided the word features into two categories: discrete and continuous data, and evaluated the correlation between them and the mean and standard deviation of attempts, respectively. For the discrete data, we used ANOVA to assess the correlation between the different values. For continuous data, we assessed the correlation between the two continuous data by calculating the Spearman correlation coefficient.  
-	\item We predicted the mean as well as the standard deviation of the number of player attempts based on the four indicators of the word and the date through a linear regression model, and ensured the effect by fitting the player distribution with a probability distribution model.
-	\item For the classification problem, we used a hierarchical clustering method to file the difficulty of all words based on the previously modeled word features, and used the WSS formula to measure the contribution of the four indicators of word attributes to the results and find the word attributes that contribute the most to the results.
-	\item A prediction model for classifying word difficulty based on word attributes was developed to analyze the word attributes of the word EERIE to determine the difficulty of the word. The model performance is analyzed by calculating the corresponding accuracy, recall, and other metrics of the model.  
-	\item In addition, we deeply mined the dataset and found some interesting properties.
+	\item  Develop a model to explain the daily variation in the number of people reporting and use this model to create a prediction interval for the number of results reported on March 1, 2023.
+	\item  Analyze whether word features affect the percentage of player scores in the difficult mode.
+	\item  developing a model that, for a given future date and for a given answer, predicts the distribution of the number of player attempts.
+	\item  developing a model for classifying the difficulty of words and analyzing which features have a greater effect on difficulty.
+	\item  Analyzing some other interesting features.
 \end{itemize}
-
-\subsection{Our work}
+	\subsection{Our work}
 
 \begin{enumerate}[\bfseries 1.]
 	\setlength{\parsep}{0ex} %段落间距
 	\setlength{\topsep}{2ex} %列表到上下文的垂直距离
 	\setlength{\itemsep}{1ex} %条目间距
 	\item We use the ARIMA model to predict the number of participants in the report at a future date, giving a prediction interval. A series of tests were conducted to ensure the generalization ability.
-	\item We precisely collected and quantified the word frequency, MNRL (Maximum Number of Repeated Letters), root words, and word properties of the words in the dataset to model the wordle words.  
+	\item We precisely collected and quantified the word frequency, MNRL (Maximum Number of Repeated Letters), word root, and word morpheme of the words in the dataset to model the wordle words.  
 	\item We used the mean and standard deviation of the number of player attempts as the word difficulty. We divided the word features into two categories: discrete and continuous data, and evaluated the correlation between them and the mean and standard deviation of attempts, respectively. For the discrete data, we used ANOVA to assess the correlation between the different values. For continuous data, we assessed the correlation between the two continuous data by calculating the Spearman correlation coefficient.  
 	\item We predicted the mean as well as the standard deviation of the number of player attempts based on the four indicators of the word and the date through a linear regression model, and ensured the effect by fitting the player distribution with a probability distribution model.
 	\item For the classification problem, we used a hierarchical clustering method to file the difficulty of all words based on the previously modeled word features, and used the WSS formula to measure the contribution of the four indicators of word attributes to the results and find the word attributes that contribute the most to the results.
@@ -214,10 +206,10 @@ Plotting the ACF and PACF plots (figure 3), it is not difficult to find that bot
 	\centering    
 	\subfigure[ACF]{				% 图片1([]内为子图标题)
 		\label{fig:sub.roomhot}							% 子图1的标签
-		\includegraphics[width=0.3\textwidth]{acf.png}}% 子图1的相对位置
+		\includegraphics[width=0.5\textwidth]{acf.png}}% 子图1的相对位置
 	\subfigure[PACF]{				% 图片2
 		\label{fig:sub.floorhot}						% 子图2的标签
-		\includegraphics[width=0.3\textwidth]{pacf.png}}% 子图2的相对位置
+		\includegraphics[width=0.5\textwidth]{pacf.png}}% 子图2的相对位置
 	\caption{ACF and PACF plots}		% 总图标题
 	\label{img3}									% 总图标签
 \end{figure}
@@ -260,15 +252,28 @@ As explained in the previous section, the date and word itself affect the distri
 
 \section{Task2: Correlation Analysis}
 
+\subsection{Indicator selection}
+To analyze their word properties, we screened four indicators of word frequency, MNRL, root, and morpheme as the basic features to classify the difficulty of words, and referred to the commonly used Gutenberg corpus, Brown corpus, Reuters corpus, WordNet corpus, and treebank corpus to count the word frequency, MNRL, root, and morpheme of each historical answer word in wordle The word frequency, MNRL, root word, and lexical property of each historical answer word in wordle were calculated. The following is a specific analysis of these four word attributes.
+
+\begin{enumerate}
+	\item Word frequency: how often a word is used in people's social life. This indicator reflects how common the word is. In general, if a word has a smaller word frequency, it can be considered as more difficult.
+	\item MNRL: The number of repeated letters in a word. Generally, if there are more than one letter in a word, it will make the word difficult to be guessed.
+	\item Root: The presence or absence of a root word in a word. In terms of historical experience, words with roots are generally more common in ordinary life and can be assumed to be less difficult to guess.
+	\item Word morpheme: The nature of a word such as a noun, verb, etc. The lexical nature of different words can reflect the different difficulty of the word. Generally, verbs and prepositions are more common in life, and words with these lexical natures can be considered less difficult.
+\end{enumerate}
+
+In summary, the above 4 attributes can basically reflect the difficulty level of words, and can be used as part of the criteria for classifying the difficulty of words.
+
+
 The correlation between the percentage of each score and the mean as well as the standard deviation is strongly related, and the correlation between the word features and the percentage can be obtained by correlation analysis of the word features as well as the mean and standard deviation.
 
 \subsection{Calculation Method Selection}
 
-We used the correlation coefficient to represent the two-by-two relationship between the four word indicators of word frequency, MNRL, root word, and word nature and the mean and standard deviation of the number of attempts.
+We used the correlation coefficient to represent the two-by-two relationship between the four word indicators of word frequency, MNRL, root word, and word morpheme and the mean and standard deviation of the number of attempts.
 
 Since the mean and standard deviation of the number of attempts are continuous data, and the four word indicators are not uniformly continuous or not, in order to calculate the correlation coefficients between the data as accurately as possible, we adopted two different calculation methods: ANOVA and Spearman's correlation coefficient.
 
-For the three features of MNRL, word roots, and word properties, whose are all discrete indicators, we chose to use ANOVA.
+For the three features of MNRL, word roots, and word morpheme, whose are all discrete indicators, we chose to use ANOVA.
 
 For the continuous type of word frequency, we chose to use Spearman's correlation coefficient or Pearson's correlation coefficient for evaluation.
 
@@ -285,7 +290,7 @@ Table.\ref{tab:tdata} and Table.\ref{tab:pdata}are the ANOVA results for these t
 		}
 		
 		\hline
-		T-value 	& MNRL	& root	 & character \\ 
+		T-value 	& MNRL	& root	 & morpheme \\ 
 		\hline
 		Means	& -7.14		& -0.66		 & -0.96  \\ 
 		\hline 
@@ -303,7 +308,7 @@ Table.\ref{tab:tdata} and Table.\ref{tab:pdata}are the ANOVA results for these t
 		}
 		
 		\hline
-		P-value 	& MNRL	& root	 & character \\ 
+		P-value 	& MNRL	& root	 & morpheme \\ 
 		\hline
 		Means	& 0.00  &  0.51 & 0.49 \\ 
 		\hline 
@@ -314,9 +319,9 @@ Table.\ref{tab:tdata} and Table.\ref{tab:pdata}are the ANOVA results for these t
 	\caption{P-value data}
 	\label{tab:pdata}
 \end{table*}
-By observing the data in the above table, we can find that the two indicators of word root and word nature have little relationship with the mean value of the number of attempts and the standard deviation, while Means is highly correlated with the values of MNRL, and Stddev is not significantly correlated with MNRL.
+By observing the data in the Table.\ref{tab:tdata} and Table.\ref{tab:pdata}, we can find that the two indicators of word root and word morpheme have little relationship with the mean value of the number of attempts and the standard deviation, while Means is highly correlated with the values of MNRL, and Stddev is not significantly correlated with MNRL.
 
-We calculated the $\mu$ and $\sigma$ values for different values (1 and 2) of Means in MNRL, and the results are as follows.
+We calculated the $\mu$ and $\sigma$ values for different values (1 and 2) of Means in MNRL, and the results are shown in Table.\ref{tab:miu} and Table.\ref{tab:sigma}.
 \begin{table*}
 	\centering
 	\begin{tabular}{  |c|c|c|
@@ -349,11 +354,11 @@ We calculated the $\mu$ and $\sigma$ values for different values (1 and 2) of Me
 	\label{tab:sigma}
 \end{table*}
 
-We can find that the Means values for different values of MNRL vary widely, and the standard deviations are small and similar in the same category; we can thus conclude how MNRL affects the average number of attempts: when MNRL is 1, the average number of attempts is 4.10, and when it is 2, the average number of attempts is 4.42. This shows that the difficulty increases significantly.
+From Table.\ref{tab:miu} and Table.\ref{tab:sigma},we can find that the Means values for different values of MNRL vary widely, and the standard deviations are small and similar in the same category; we can thus conclude how MNRL affects the average number of attempts: when MNRL is 1, the average number of attempts is 4.10, and when it is 2, the average number of attempts is 4.42. This shows that the difficulty increases significantly.
 
 The following is the basis for the choice of Spearman and Pearson to see if the linear relationship as well as the normal distribution is met.
 
-To visualize Frequency-Means as well as Frequency-Std.
+Figure 8 is to visualize Frequency-Means as well as Frequency-Std.
 
 \begin{figure}[H]
 	\centering    
@@ -435,7 +440,7 @@ Next we need to:
 \end{itemize}
 
 \subsection{Choosing Probability Distribution Model}
-\subsubsection{Model}
+\subsubsection{Modeling}
 In the data set, we can calculate the mean and standard deviation of the number of attempts for each word, which we think is of great significance for the percentage of attempts.
 	
 The normal distribution is an important continuous-type probability distribution that is widely found in nature and social phenomena. For example, the distribution of students' grades and the distribution of players' game scores are typical examples of normal distributions. In the context of Wordle game, we can consider the number of attempts of a player as the score of the game.
@@ -515,17 +520,6 @@ We chose the indicator of the number of repeated letters in words, and this indi
 
 \section{Task 4: Classifying word difficulty}
 \subsection{Hierarchical clustering-based word difficulty classification model}
-\subsubsection{Indicator selection}
-To analyze their word properties, we screened four indicators of word frequency, MNRL, root, and wordiness as the basic features to classify the difficulty of words, and referred to the commonly used Gutenberg corpus, Brown corpus, Reuters corpus, WordNet corpus, and treebank corpus to count the word frequency, MNRL, root, and wordiness of each historical answer word in wordle The word frequency, MNRL, root word, and lexical property of each historical answer word in wordle were calculated. The following is a specific analysis of these four word attributes.
-
-\begin{enumerate}
-	\item Word frequency: how often a word is used in people's social life. This indicator reflects how common the word is. In general, if a word has a smaller word frequency, it can be considered as more difficult.
-	\item MNRL: The number of repeated letters in a word. Generally, if there are more than one letter in a word, it will make the word difficult to be guessed.
-	\item Root: The presence or absence of a root word in a word. In terms of historical experience, words with roots are generally more common in ordinary life and can be assumed to be less difficult to guess.
-	\item Word nature: The nature of a word such as a noun, verb, etc. The lexical nature of different words can reflect the different difficulty of the word. Generally, verbs and prepositions are more common in life, and words with these lexical natures can be considered less difficult.
-\end{enumerate}
-
-In summary, the above 4 attributes can basically reflect the difficulty level of words, and can be used as part of the criteria for classifying the difficulty of words.
 
 \subsubsection{Data pre-processing}
 
@@ -645,7 +639,7 @@ After clustering, the different two categories of difficulty categories are aggr
 After getting the results after clustering, for each indicator, calculate the sum of variance in different levels of clustering, that is, calculate the sum of variance of the indicator in different clusters after clustering, and then divide it by the total variance to get the contribution degree of the indicator.
 
 \begin{equation}
-WSS=\Sigma\|x i-c\|^{\wedge} 2(i=1,2, \ldots, n)
+WSS=\sum^n_{i=1}\|x_i-c\|^2, (i=1,2, \ldots, n)
 \end{equation}
 
 Finally, the contribution of each respective metric in the total metric is shown in a fan chart based on the contribution of the obtained metrics, with MNRL and word frequency contributing the most to the clustering results, visualized as follows.
@@ -686,12 +680,11 @@ In order to determine the specific accuracy of the classification model, four me
 	\item Recall: The percentage of samples with positive cases that are predicted to be positive cases.
 	\item F1 value: The summed average of precision and recall.
 	\item Support: the number of samples per category in the true label.
-	The specific accuracies are listed in the following table:
+	The specific accuracies are listed in the Table 12.
 \end{enumerate}
 
 \begin{table}[hbp]
 	\centering
-	
 	\label{tab:pagenum}
 	\begin{tabular}{lllll}
 		\toprule
@@ -742,9 +735,9 @@ Second, we calculated the mean and variance of the player scores, and found that
 	
 	\section{Analysis on Model's Sensitivity}
 
-	In TASK 5, a support vector machine classification model was used to classify the specified word difficulty based on 4 word attributes. To determine the effect of the 4 attributes on the final classification results, here we performed a sensitivity analysis.
+	In TASK 4, a support vector machine classification model was used to classify the specified word difficulty based on 4 word attributes. To determine the effect of the 4 attributes on the final classification results, here we performed a sensitivity analysis.
 	
-	For each of the 4 word attributes in the dataset fluctuated from 0.1 to 0.5, respectively, and were again brought into the support vector machine classification model for classification prediction to test the accuracy between the test and prediction sets, where word frequency, MNRL, and word root fluctuations were found to fluctuate in the interval 0.1 to 0.3, and the accuracy was still high, and it can be assumed that the sensitivity of these attributes in the interval to the final classification results is small.
+	For each of the 4 word attributes in the dataset fluctuated from 0.1 to 0.4, respectively, and were again brought into the support vector machine classification model for classification prediction to test the accuracy between the test and prediction sets, where word frequency, MNRL, and word root fluctuations were found to fluctuate in the interval 0.1 to 0.3, and the accuracy was still high, and it can be assumed that the sensitivity of these attributes in the interval to the final classification results is small.
 	
 	When the fluctuation is between 0.1 and 0.4, the accuracy of the 4 attributes of the word brought back into the model is as follows:
 	

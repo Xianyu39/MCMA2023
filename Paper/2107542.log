@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  21 FEB 2023 05:41
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 23.1) (preloaded format=xelatex 2023.2.16)  21 FEB 2023 07:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -775,49 +775,55 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [2]
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 7
-8.
+3.
 
 (D:\Pro\MiKTeX\tex/latex/psnfss\ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3
 
-] [4]
+]
 File: ./img//nr.png Graphic file (type bmp)
 <./img//nr.png>
+ [4]
 File: ./img//nra1d.png Graphic file (type bmp)
 <./img//nra1d.png>
- [5] [6]
+ [5]
 File: ./img//acf.png Graphic file (type bmp)
 <./img//acf.png>
 File: ./img//pacf.png Graphic file (type bmp)
 <./img//pacf.png>
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 209--213
+ [][][][] 
+ []
+
+[6]
 File: ./img//erhmp.png Graphic file (type bmp)
 <./img//erhmp.png>
- [7]
 File: ./img//prd.png Graphic file (type bmp)
 <./img//prd.png>
+ [7]
 File: ./img//ARIMA1.png Graphic file (type bmp)
 <./img//ARIMA1.png>
 File: ./img//ARIMA2.png Graphic file (type bmp)
 <./img//ARIMA2.png>
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 249--253
+Overfull \hbox (6.0pt too wide) in paragraph at lines 241--245
  [][][][] 
  []
 
-[8]
-Overfull \hbox (24.84654pt too wide) in paragraph at lines 280--281
+[8] [9]
+Overfull \hbox (24.84654pt too wide) in paragraph at lines 285--286
 []\T1/ppl/m/n/12 Table.[][]3[][] and Ta-ble.[][]4[][]are the ANOVA re-sults for
  these three in-di-ca-tors and two continuous-
  []
 
-[9]
 File: ./img//Frequency-Means.png Graphic file (type bmp)
 <./img//Frequency-Means.png>
 File: ./img//Frequency-Std.png Graphic file (type bmp)
 <./img//Frequency-Std.png>
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 362--366
+Overfull \hbox (6.0pt too wide) in paragraph at lines 367--371
  [][][][] 
  []
 
@@ -827,28 +833,27 @@ File: ./img//Freq-QQ.png Graphic file (type bmp)
  [11]
 File: ./img//mcm.excalidraw.png Graphic file (type bmp)
 <./img//mcm.excalidraw.png>
- [12]
+ [12] [13]
 File: ./img//nm act.png Graphic file (type bmp)
 <./img//nm act.png>
 File: ./img//nm act2.jpg Graphic file (type bmp)
 <./img//nm act2.jpg>
 File: ./img//rbfms.png Graphic file (type bmp)
 <./img//rbfms.png>
- [13]
 File: ./img//pms.png Graphic file (type bmp)
 <./img//pms.png>
+ [14]
 File: ./img//eerie.png Graphic file (type bmp)
 <./img//eerie.png>
- [14]
-Overfull \hbox (1.64992pt too wide) in paragraph at lines 517--517
+ [15]
+Overfull \hbox (1.64992pt too wide) in paragraph at lines 522--522
 |[]\T1/ppl/b/n/14.4 Hierarchical clustering-based word dif-fi-culty clas-si-fi-
 ca-tion model| 
  []
 
-[15]
 File: ./img//pic1.png Graphic file (type bmp)
 <./img//pic1.png>
- [16]
+[16]
 Missing character: There is no ： in font pplr8t!
 [17]
 File: ./img//pic2.png Graphic file (type bmp)
@@ -946,7 +951,7 @@ AED: lastpage setting LastPage
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `2107542.out' has not changed.
-(rerunfilecheck)             Checksum: 36EBF9296C598C2F3E8F7962B7AD9B81;7686.
+(rerunfilecheck)             Checksum: 2096C66124AD56EBC400DFE7BA47069E;7681.
  ) 
 Here is how much of TeX's memory you used:
  17166 strings out of 411511
@@ -955,6 +960,6 @@ Here is how much of TeX's memory you used:
  37084 multiletter control sequences out of 15000+600000
  532934 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 87i,13n,90p,1224b,450s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,13n,90p,1224b,452s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on 2107542.pdf (25 pages).
